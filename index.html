@@ -3,99 +3,171 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Verificador de Subrogados · Colombia</title>
+<title>Verificador de Subrogados Â· Colombia</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f0f4f9;
-  --s1:#e4ebf5;
-  --s2:#d8e3f0;
+  --bg:#f4f6f9;
   --card:#ffffff;
-  --b1:rgba(0,0,0,.13);
-  --b2:rgba(0,0,0,.07);
-  --teal:#0a8f71;
-  --teal-bg:rgba(10,143,113,.1);
+  --card2:#f8f9fc;
+  --b1:rgba(0,0,0,.11);
+  --b2:rgba(0,0,0,.06);
+  --navy:#1e3a5f;
+  --navy2:#2c5282;
+  --green:#059669;
+  --green-bg:#ecfdf5;
+  --green-b:rgba(5,150,105,.25);
   --red:#c0392b;
-  --red-bg:rgba(192,57,43,.1);
-  --amber:#b06c00;
-  --amber-bg:rgba(176,108,0,.1);
-  --blue:#1558a8;
-  --purple:#5d3eb3;
-  --orange:#b84d00;
-  --text:#1a2742;
-  --muted:#3d5070;
-  --dim:#6a7d9a;
+  --red-bg:#fef2f2;
+  --red-b:rgba(192,57,43,.25);
+  --amber:#b45309;
+  --amber-bg:#fffbeb;
+  --amber-b:rgba(180,83,9,.25);
+  --blue:#1d4ed8;
+  --blue-bg:#eff6ff;
+  --purple:#6d28d9;
+  --orange:#c2410c;
+  --text:#111827;
+  --muted:#374151;
+  --dim:#6b7280;
+  --light:#9ca3af;
 }
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
 
 /* HEADER */
-.hdr{background:linear-gradient(180deg,#1a3a6e,#2b5299);border-bottom:1px solid rgba(0,0,0,.15);text-align:center;padding:28px 20px 22px}
-.hdr h1{font-size:24px;font-weight:700;color:#fff;letter-spacing:-.3px;margin-bottom:5px}
-.hdr p{color:rgba(255,255,255,.82);font-size:13px;max-width:520px;margin:0 auto}
+.hdr{background:linear-gradient(160deg,#1e3a5f 0%,#2c5282 100%);text-align:center;padding:32px 20px 26px;border-bottom:3px solid #1a3050}
+.hdr h1{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.2px;margin-bottom:6px}
+.hdr p{color:rgba(255,255,255,.85);font-size:13.5px;max-width:560px;margin:0 auto;line-height:1.5}
 
-/* MAIN */
-.wrap{max-width:980px;margin:0 auto;padding:28px 20px 40px}
+/* MAIN LAYOUT */
+.wrap{max-width:1000px;margin:0 auto;padding:28px 20px 48px}
 
-/* INPUT PANEL */
-.panel{background:var(--card);border:1px solid var(--b1);border-radius:16px;padding:22px;margin-bottom:20px}
-.panel-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+/* PANEL */
+.panel{background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:24px;margin-bottom:22px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.panel-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
+.crime-count{background:var(--navy);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;display:none}
+.crime-count.show{display:inline-block}
 
 /* SEARCH */
-.search-wrap{position:relative;margin-bottom:12px}
-.search-wrap input{width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:10px;color:var(--text);font-size:14px;padding:11px 14px;outline:none;transition:border-color .15s}
-.search-wrap input::placeholder{color:var(--dim)}
-.search-wrap input:focus{border-color:rgba(28,201,160,.45)}
-.dd{position:absolute;top:calc(100% + 5px);left:0;right:0;background:#1a2d4a;border:1px solid var(--b1);border-radius:10px;max-height:280px;overflow-y:auto;z-index:200;display:none}
+.search-wrap{position:relative;margin-bottom:14px}
+.search-wrap input{
+  width:100%;
+  background:#fff;
+  border:2px solid #cbd5e0;
+  border-radius:10px;
+  color:var(--text);
+  font-size:15px;
+  padding:12px 16px 12px 44px;
+  outline:none;
+  transition:border-color .15s,box-shadow .15s;
+}
+.search-wrap input:focus{border-color:var(--navy2);box-shadow:0 0 0 3px rgba(44,82,130,.15)}
+.search-wrap input::placeholder{color:var(--light)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--dim);pointer-events:none}
+
+/* DROPDOWN */
+.dd{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;
+  background:#fff;
+  border:1.5px solid #cbd5e0;
+  border-radius:10px;
+  max-height:320px;overflow-y:auto;
+  z-index:500;display:none;
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
 .dd.open{display:block}
-.ddi{padding:9px 14px;cursor:pointer;border-bottom:1px solid var(--b2)}
+.ddi{padding:11px 16px;cursor:pointer;border-bottom:1px solid #f1f5f9;display:flex;align-items:flex-start;gap:12px}
 .ddi:last-child{border-bottom:none}
-.ddi:hover,.ddi.act{background:rgba(28,201,160,.1)}
-.ddi-art{font-size:11px;color:var(--teal);font-weight:700;margin-bottom:1px}
-.ddi-name{font-size:13px;line-height:1.35}
-.ddi-tags{font-size:11px;color:var(--dim);margin-top:3px}
-.dd-empty{padding:13px;color:var(--dim);font-size:13px;text-align:center}
+.ddi:hover,.ddi.act{background:#f0f7ff}
+.ddi-art{font-size:11.5px;color:var(--navy2);font-weight:700;white-space:nowrap;flex-shrink:0;padding-top:1px}
+.ddi-right{flex:1;min-width:0}
+.ddi-name{font-size:14.5px;color:var(--text);line-height:1.3;font-weight:500}
+.ddi-flag{font-size:11px;margin-top:3px;font-weight:600}
+.dd-empty{padding:16px;color:var(--dim);font-size:13.5px;text-align:center}
+
+/* MULTI-HINT */
+.multi-hint{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:9px 13px;font-size:13px;color:#1e40af;margin-bottom:12px;display:none;align-items:center;gap:8px}
+.multi-hint.show{display:flex}
 
 /* CRIME TAGS */
-.tags-list{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;min-height:0}
-.ctag{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;background:var(--s2);border:1px solid rgba(96,165,250,.25);border-radius:8px;padding:8px 9px 8px 12px}
+.tags-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.ctag{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;padding:10px 10px 10px 14px;
+}
 .ctag-l{flex:1;min-width:0}
-.ctag-art{font-size:11px;color:var(--teal);font-weight:700;margin-bottom:1px}
-.ctag-name{font-size:13px;line-height:1.3}
-.ctag-rm{background:none;border:none;color:var(--dim);cursor:pointer;font-size:18px;padding:0 2px;line-height:1;flex-shrink:0;transition:color .15s;margin-top:1px}
-.ctag-rm:hover{color:var(--red)}
-.empty-hint{color:var(--dim);font-size:13px;text-align:center;padding:18px 0}
+.ctag-art{font-size:11.5px;color:var(--navy2);font-weight:700;margin-bottom:1px}
+.ctag-name{font-size:14px;color:var(--text);line-height:1.3;font-weight:500}
+.ctag-rm{
+  background:none;border:1.5px solid #e2e8f0;color:var(--dim);
+  cursor:pointer;font-size:16px;padding:0;width:28px;height:28px;
+  border-radius:6px;line-height:1;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .12s,color .12s,border-color .12s;
+}
+.ctag-rm:hover{background:var(--red-bg);color:var(--red);border-color:var(--red)}
+.empty-hint{color:var(--dim);font-size:14px;text-align:center;padding:22px 0;border:2px dashed #e2e8f0;border-radius:8px;background:#fafafa}
 
-/* ANALIZAR BTN */
-.btn-analyze{width:100%;background:var(--teal);color:#0b1a0e;font-size:15px;font-weight:700;padding:13px;border:none;border-radius:10px;cursor:pointer;transition:opacity .15s;letter-spacing:.01em}
-.btn-analyze:hover{opacity:.88}
+/* ANALYZE BUTTON */
+.btn-analyze{
+  width:100%;background:var(--navy);color:#fff;
+  font-size:16px;font-weight:700;padding:14px;
+  border:none;border-radius:10px;cursor:pointer;
+  transition:background .15s,opacity .15s;
+  letter-spacing:.01em;margin-top:4px;
+}
+.btn-analyze:hover:not(:disabled){background:var(--navy2)}
 .btn-analyze:disabled{opacity:.4;cursor:not-allowed}
 
-/* RESULTS GRID */
+/* LEGEND */
+.legend-wrap{background:var(--card2);border:1px solid var(--b2);border-radius:9px;padding:13px 16px;margin-top:18px}
+.legend-title{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.legend-row{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--muted);margin-bottom:6px;line-height:1.4}
+.legend-row:last-child{margin-bottom:0}
+.ldot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+
+/* RESULTS */
 .results{display:none}
 .results.show{display:block}
-.r-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.r-header h2{font-size:13px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
-.r-reset{background:none;border:1px solid var(--b1);border-radius:7px;color:var(--dim);font-size:12px;padding:5px 12px;cursor:pointer;transition:background .15s}
-.r-reset:hover{background:var(--s2)}
+
+/* NEW QUERY BUTTON â very prominent */
+.btn-reset{
+  display:block;width:100%;
+  background:#fff;
+  border:2px solid var(--navy);
+  border-radius:10px;
+  color:var(--navy);
+  font-size:15px;font-weight:700;
+  padding:12px 20px;
+  cursor:pointer;
+  margin-bottom:20px;
+  transition:background .15s,color .15s;
+  text-align:center;
+}
+.btn-reset:hover{background:var(--navy);color:#fff}
+
+.r-label{font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+
+/* RESULTS GRID */
 .grid5{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:720px){.grid5{grid-template-columns:1fr}}
-@media(min-width:721px) and (max-width:900px){.grid5{grid-template-columns:1fr 1fr}}
-.rc{background:var(--card);border:1px solid var(--b1);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+@media(min-width:721px) and (max-width:920px){.grid5{grid-template-columns:1fr 1fr}}
 
-/* RESULT CARD HEADER */
+/* RESULT CARD */
+.rc{background:var(--card);border:1.5px solid var(--b1);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
 .rc-head{padding:14px 16px 12px;border-bottom:1px solid var(--b2)}
-.rc-status{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.rc-status{display:flex;align-items:center;gap:8px;margin-bottom:7px}
 .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.rc-name{font-size:13px;font-weight:700;color:#fff;line-height:1.3}
+.rc-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3}
 .rc-norm{font-size:11px;color:var(--dim);margin-top:2px}
 
-/* STATUS BADGES */
-.sbadge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.03em}
-.sbadge.ok{background:var(--teal-bg);color:var(--teal);border:1px solid rgba(10,143,113,.3)}
-.sbadge.excl{background:var(--red-bg);color:var(--red);border:1px solid rgba(192,57,43,.3)}
-.sbadge.verify{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(176,108,0,.3)}
-.sbadge.verify{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(251,191,36,.25)}
-.sbadge.note{background:rgba(96,165,250,.12);color:var(--blue);border:1px solid rgba(96,165,250,.25)}
+/* BADGES */
+.sbadge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:20px;letter-spacing:.03em}
+.sbadge.ok{background:var(--green-bg);color:var(--green);border:1.5px solid var(--green-b)}
+.sbadge.excl{background:var(--red-bg);color:var(--red);border:1.5px solid var(--red-b)}
+.sbadge.verify{background:var(--amber-bg);color:var(--amber);border:1.5px solid var(--amber-b)}
+.sbadge.note{background:var(--blue-bg);color:var(--blue);border:1.5px solid rgba(29,78,216,.2)}
 
 /* CARD BODY */
 .rc-body{padding:12px 16px;flex:1;font-size:12.5px;line-height:1.5}
@@ -106,216 +178,467 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .excl-msg{color:var(--muted);font-size:11.5px;line-height:1.4}
 .req-title{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
 .req-item{display:flex;align-items:flex-start;gap:7px;padding:3px 0;color:var(--muted)}
-.req-bullet{width:5px;height:5px;background:var(--teal);border-radius:50%;flex-shrink:0;margin-top:6px}
-.note-box{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18);border-radius:8px;padding:9px 11px;font-size:12px;color:var(--amber);line-height:1.5;margin-top:8px}
-
-/* LEYENDA */
-.legend-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-bottom:5px}
-.legend-row:last-child{margin-bottom:0}
-.ldot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.legend-wrap{background:var(--s2);border:1px solid var(--b2);border-radius:9px;padding:12px 14px;margin-top:14px}
-.legend-title{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px}
-
-/* ALERT */
-.alert-note{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18);border-radius:9px;padding:10px 13px;font-size:12px;color:var(--amber);line-height:1.5;margin-top:12px}
+.req-bullet{width:5px;height:5px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:7px}
+.note-box{background:var(--amber-bg);border:1px solid var(--amber-b);border-radius:7px;padding:8px 11px;font-size:11.5px;color:var(--amber);line-height:1.5;margin-top:8px}
 
 /* FOOTER */
 footer{border-top:1px solid var(--b2);padding:18px 20px;text-align:center;color:var(--dim);font-size:12px}
+footer p+p{margin-top:4px}
 
 ::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-thumb{background:rgba(0,0,0,.2);border-radius:3px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.18);border-radius:3px}
 </style>
 </head>
 <body>
 
 <header class="hdr">
   <h1>Verificador de Subrogados y Sustitutos Penales</h1>
-  <p>Ingresa los delitos de la sentencia condenatoria y verifica en cuáles subrogados o sustitutos aplica una solicitud. Análisis en abstracto — no reemplaza la revisión de la sentencia.</p>
+  <p>Ingresa los delitos de la sentencia condenatoria y verifica en cuÃ¡les subrogados aplica una solicitud. AnÃ¡lisis en abstracto â no reemplaza la revisiÃ³n de la sentencia.</p>
 </header>
 
 <div class="wrap">
 
   <!-- PANEL DE ENTRADA -->
   <div class="panel">
-    <div class="panel-title">
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-      Delitos de la sentencia condenatoria
+    <div class="panel-hd">
+      <div class="panel-title">Delitos de la sentencia condenatoria</div>
+      <div class="crime-count" id="crimeCount">0 delitos</div>
     </div>
 
     <div class="search-wrap" id="sw">
-      <input id="inp" type="text" placeholder="Buscar por nombre del delito o número de artículo…" autocomplete="off"/>
+      <svg class="search-icon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="inp" type="text" placeholder="Buscar por nombre del delito o nÃºmero de artÃ­culo â puedes agregar variosâ¦" autocomplete="off"/>
       <div class="dd" id="dd"></div>
     </div>
 
-    <div class="tags-list" id="tags">
-      <div class="empty-hint" id="hint">Agrega al menos un delito para continuar</div>
+    <div class="multi-hint" id="multiHint">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+      <span>La sentencia puede tener <strong>varios delitos</strong>. Agrega todos antes de verificar.</span>
     </div>
 
-    <button class="btn-analyze" id="btnAnalyze" onclick="runAnalysis()" disabled>Verificar subrogados</button>
+    <div class="tags-list" id="tags">
+      <div class="empty-hint" id="hint">Busca y agrega los delitos de la sentencia</div>
+    </div>
+
+    <button class="btn-analyze" id="btnAnalyze" onclick="runAnalysis()" disabled>Verificar subrogados â</button>
 
     <div class="legend-wrap">
-      <div class="legend-title">Fuentes de exclusión que analiza esta herramienta</div>
-      <div class="legend-row"><div class="ldot" style="background:#c0392b"></div> Art. 199 Ley 1098/2006 — Código de la Infancia (delitos contra NNA)</div>
-      <div class="legend-row"><div class="ldot" style="background:#b84d00"></div> Art. 26 Ley 1121/2006 — Ley Antiterrorismo (terrorismo, secuestro, extorsión) · <em>No aplica para Ley 2292</em></div>
-      <div class="legend-row"><div class="ldot" style="background:#5d3eb3"></div> Art. 68-A CP — Exclusión general de subrogados · <em>No aplica para Ley 2292</em></div>
-      <div class="legend-row"><div class="ldot" style="background:#1558a8"></div> Art. 38G CP — Lista de exclusión para prisión domiciliaria (mitad de pena)</div>
-      <div class="legend-row"><div class="ldot" style="background:#c0392b" style="background:#6b0f0f"></div> Ley 2292/2023 — Exclusiones propias: violencia intrafamiliar, uso de menores, homicidio/lesiones dolosas</div>
-      <div class="legend-row"><div class="ldot" style="background:#b06c00"></div> Requiere validación directa en la sentencia</div>
+      <div class="legend-title">Fuentes de exclusiÃ³n que analiza esta herramienta</div>
+      <div class="legend-row"><div class="ldot" style="background:var(--red)"></div><span><strong>Art. 199 Ley 1098/2006</strong> â CÃ³digo de la Infancia y Adolescencia (delitos contra NNA)</span></div>
+      <div class="legend-row"><div class="ldot" style="background:var(--orange)"></div><span><strong>Art. 26 Ley 1121/2006</strong> â Ley Antiterrorismo (terrorismo, secuestro, extorsiÃ³n) Â· <em>No aplica para Ley 2292</em></span></div>
+      <div class="legend-row"><div class="ldot" style="background:var(--purple)"></div><span><strong>Art. 68-A CP</strong> â CatÃ¡logo general de exclusiÃ³n de subrogados Â· <em>No aplica para Ley 2292</em></span></div>
+      <div class="legend-row"><div class="ldot" style="background:var(--blue)"></div><span><strong>Art. 38G CP</strong> â Lista de exclusiÃ³n para prisiÃ³n domiciliaria (mitad de pena)</span></div>
+      <div class="legend-row"><div class="ldot" style="background:#7f1d1d"></div><span><strong>Ley 2292/2023</strong> â Exclusiones propias: violencia intrafamiliar, uso de menores, homicidio/lesiones dolosas</span></div>
+      <div class="legend-row"><div class="ldot" style="background:var(--amber)"></div><span>Requiere validaciÃ³n directa en la sentencia (vÃ­ctima menor, agravante terrorismo, cantidad de droga)</span></div>
     </div>
   </div>
 
   <!-- PANEL DE RESULTADOS -->
   <div class="results" id="results">
-    <div class="r-header">
-      <h2>Resultado por subrogado o sustituto</h2>
-      <button class="r-reset" onclick="resetAll()">← Nueva consulta</button>
-    </div>
+    <button class="btn-reset" onclick="resetAll()">â Nueva consulta</button>
+    <div class="r-label">Resultado por subrogado o sustituto</div>
     <div class="grid5" id="grid"></div>
   </div>
 
 </div>
 
 <footer>
-  <p>Art. 63 · 38-B · 64 · 38G · 38H-38I CP — Ley 2292/2023 — Art. 199 Ley 1098/2006 — Art. 26 Ley 1121/2006 — Art. 68-A CP — Directiva Conjunta 001/2026</p>
-  <p style="margin-top:4px">Herramienta de apoyo. Análisis en abstracto. No reemplaza el criterio jurídico del defensor ni la revisión de la sentencia.</p>
+  <p>Art. 63 Â· 38-B Â· 64 Â· 38G Â· 38H-38I CP â Ley 2292/2023 â Art. 199 Ley 1098/2006 â Art. 26 Ley 1121/2006 â Art. 68-A CP</p>
+  <p>Herramienta de apoyo. AnÃ¡lisis en abstracto. No reemplaza el criterio jurÃ­dico del defensor ni la revisiÃ³n de la sentencia.</p>
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// BASE DE DATOS
-// Flags: a199=identifica menor | v199=verificar víctima | lrt=Ley 1121 | e68A=68-A | g38G=38G | s38G=especial estupef.
-// ═══════════════════════════════════════════════════════
-const DB = [
-  // ── ART. 199/1098 · IDENTIFICAN AL MENOR DESDE EL TIPO PENAL ─────
-  {id:'ac_men14', art:'Art. 208 CP',  name:'Acceso carnal abusivo con menor de catorce años',                k:'208 acceso carnal abusivo menor catorce',a199:1},
-  {id:'as_men14', art:'Art. 209 CP',  name:'Actos sexuales con menor de catorce años',                       k:'209 actos sexuales menor catorce abusivos',a199:1},
-  {id:'prox_men', art:'Art. 213A CP', name:'Proxenetismo con menor de edad',                                 k:'213A proxenetismo menor edad',a199:1},
-  {id:'med_com',  art:'Art. 219A CP', name:'Utilización o facilitación de medios de comunicación para ofrecer actividades sexuales con personas menores de 18 años', k:'219A medios comunicacion actividades sexuales menores utilizacion facilitacion 219-A',a199:1},
-  {id:'est_pmen', art:'Art. 217 CP',  name:'Estímulo a la prostitución de menores',                          k:'217 estimulo estimulo prostitucion menores',a199:1},
-  {id:'dem_expl', art:'Art. 217A CP', name:'Demanda de explotación sexual comercial de persona menor de 18 años de edad', k:'217A demanda explotacion sexual comercial menor 18',a199:1},
-  {id:'porn_men', art:'Art. 218 CP',  name:'Pornografía con personas menores de 18 años',                   k:'218 pornografia menores 18',a199:1},
-
-  // ── ART. 199/1098 · NO IDENTIFICAN AL MENOR (verificar en sentencia) ──
-  {id:'homicidio',art:'Art. 103 CP',  name:'Homicidio doloso',                                               k:'103 homicidio doloso',v199:1,hd:1},
-  {id:'lesiones', art:'Art. 111 CP',  name:'Lesiones personales dolosas',                                    k:'111 lesiones personales dolosas',v199:1,hd:1},
-  {id:'sec_simp', art:'Art. 168 CP',  name:'Secuestro simple',                                               k:'168 secuestro simple',v199:1,lrt:1,g38G:1},
-  {id:'sec_ext',  art:'Art. 169 CP',  name:'Secuestro extorsivo',                                            k:'169 secuestro extorsivo',v199:1,lrt:1,g38G:1},
-  {id:'acc_viol', art:'Art. 205 CP',  name:'Acceso carnal violento',                                         k:'205 acceso carnal violento violacion',v199:1,g38G:1},
-  {id:'act_viol', art:'Art. 206 CP',  name:'Acto sexual violento',                                           k:'206 acto sexual violento',v199:1,g38G:1},
-  {id:'acc_inc',  art:'Art. 207 CP',  name:'Acceso carnal o acto sexual en persona puesta en incapacidad de resistir', k:'207 acceso acto sexual incapacidad resistir',v199:1,g38G:1},
-  {id:'ab_inc',   art:'Art. 210 CP',  name:'Acceso carnal o acto sexual abusivo con incapaz de resistir',   k:'210 abusivo incapaz resistir',v199:1,g38G:1},
-  {id:'acoso',    art:'Art. 210A CP', name:'Acoso sexual',                                                   k:'210A acoso sexual',v199:1,g38G:1},
-  {id:'ind_pr',   art:'Art. 213 CP',  name:'Inducción a la prostitución',                                    k:'213 induccion a la prostitucion',v199:1,g38G:1},
-  {id:'con_pr',   art:'Art. 214 CP',  name:'Constreñimiento a la prostitución',                              k:'214 constreñimiento prostitucion',v199:1,g38G:1},
-  {id:'tur_sex',  art:'Art. 219 CP',  name:'Turismo sexual',                                                 k:'219 turismo sexual',v199:1,g38G:1},
-  {id:'omis_d',   art:'Art. 219B CP', name:'Omisión de denuncia',                                            k:'219B 219-B omision denuncia',v199:1,g38G:1},
-
-  // ── ART. 26 LEY 1121/2006 ─────────────────────────────────────────
-  {id:'terror',   art:'Art. 343 CP',  name:'Terrorismo',                                                     k:'343 terrorismo',lrt:1,e68A:1,g38G:1},
-  {id:'extorsion',art:'Art. 244 CP',  name:'Extorsión',                                                      k:'244 extorsion extorsión',lrt:1,e68A:1,g38G:1},
-
-  // ── ART. 345 CP (nombre oficial actualizado) ──────────────────────
-  {id:'fin_terr', art:'Art. 345 CP',  name:'Financiación del terrorismo y de grupos de delincuencia organizada y administración de recursos relacionados con actividades terroristas y de la delincuencia organizada', k:'345 financiacion terrorismo grupos delincuencia organizada administracion recursos actividades terroristas',lrt:1,g38G:1},
-
-  // ── ART. 38G / 68-A ──────────────────────────────────────────────
-  {id:'genocidio',art:'Art. 101 CP',  name:'Genocidio',                                                     k:'101 genocidio',g38G:1},
-  {id:'apol_gen', art:'Art. 102 CP',  name:'Apología del genocidio',                                        k:'102 apologia genocidio',e68A:1},
-  {id:'hom_pr',   art:'Art. 135 CP',  name:'Homicidio en persona protegida',                                k:'135 homicidio persona protegida DIH',g38G:1},
-  {id:'les_pr',   art:'Art. 136 CP',  name:'Lesiones en persona protegida',                                 k:'136 lesiones persona protegida DIH',g38G:1},
-  {id:'tor_pr',   art:'Art. 137 CP',  name:'Tortura en persona protegida',                                  k:'137 tortura persona protegida DIH',g38G:1},
-  {id:'desap',    art:'Art. 165 CP',  name:'Desaparición forzada',                                          k:'165 desaparicion forzada',e68A:1,g38G:1},
-  {id:'tortura',  art:'Art. 178 CP',  name:'Tortura',                                                       k:'178 tortura',g38G:1},
-  {id:'desplaz',  art:'Art. 180 CP',  name:'Desplazamiento forzado',                                        k:'180 desplazamiento forzado',e68A:1,g38G:1},
-  {id:'tr_men',   art:'Art. 188C CP', name:'Tráfico de niñas, niños y adolescentes',                        k:'188C trafico niñas niños adolescentes menores',g38G:1},
-  {id:'uso_men',  art:'Art. 188D CP', name:'Uso de menores de edad para la comisión de delitos',            k:'188D uso menores edad comision delitos',g38G:1,usm:1},
-  {id:'tr_migr',  art:'Art. 188 CP',  name:'Tráfico de migrantes',                                          k:'188 trafico migrantes',e68A:1,g38G:1},
-  {id:'trata',    art:'Art. 188A CP', name:'Trata de personas',                                              k:'188A trata de personas',e68A:1,g38G:1},
-  {id:'con_agr',  art:'Art. 340 inc. 2° CP', name:'Concierto para delinquir agravado',                     k:'340 concierto para delinquir agravado',e68A:1,g38G:1},
-  {id:'lavado',   art:'Art. 323 CP',  name:'Lavado de activos',                                             k:'323 lavado de activos',e68A:1,g38G:1},
-  {id:'usurp_fp', art:'Art. 425 CP',  name:'Usurpación de funciones públicas',                              k:'425 usurpacion funciones publicas',g38G:0,usurpTerr:1},
-  {id:'armas_r',  art:'Art. 366 CP',  name:'Fabricación, tráfico y porte de armas y municiones de uso privativo de las fuerzas armadas o explosivos', k:'366 fabricacion trafico porte armas municiones uso privativo fuerzas armadas explosivos',g38G:1},
-  {id:'dest_il',  art:'Art. 377 CP',  name:'Destinación ilícita de muebles o inmuebles',                   k:'377 destinacion ilicita muebles inmuebles',g38G:1},
-  {id:'semis',    art:'Art. 377A CP', name:'Uso, construcción, comercialización y/o tenencia de semisumergibles o sumergibles', k:'377A semisumergibles sumergibles',g38G:1},
-  {id:'est_il',   art:'Art. 378 CP',  name:'Estímulo al uso ilícito',                                      k:'378 estimulo uso ilicito drogas',g38G:1},
-  {id:'sum_fo',   art:'Art. 379 CP',  name:'Suministro o formulación ilegal',                               k:'379 suministro formulacion ilegal',g38G:1},
-  {id:'sum_dep',  art:'Art. 380 CP',  name:'Suministro o formulación ilegal a deportistas',                 k:'380 suministro formulacion ilegal deportistas',g38G:1},
-  {id:'sum_men',  art:'Art. 381 CP',  name:'Suministro a menor',                                            k:'381 suministro menor drogas',g38G:1},
-  {id:'tr_sus',   art:'Art. 382 CP',  name:'Tráfico de sustancias para el procesamiento de narcóticos',    k:'382 trafico sustancias procesamiento narcoticos precursores',g38G:1},
-  {id:'porte_s',  art:'Art. 383 CP',  name:'Porte de sustancias',                                           k:'383 porte sustancias escopolamina',g38G:1},
-  {id:'pistas',   art:'Art. 385 CP',  name:'Existencia, construcción y utilización ilegal de pistas de aterrizaje', k:'385 pistas aterrizaje ilegales',g38G:1},
-  {id:'peculado', art:'Art. 397 CP',  name:'Peculado por apropiación',                                      k:'397 peculado por apropiacion',e68A:1,g38G:1},
-  {id:'concusion',art:'Art. 404 CP',  name:'Concusión',                                                     k:'404 concusion',e68A:1,g38G:1},
-  {id:'coh_p',    art:'Art. 405 CP',  name:'Cohecho propio',                                                k:'405 cohecho propio',e68A:1,g38G:1},
-  {id:'coh_i',    art:'Art. 406 CP',  name:'Cohecho impropio',                                              k:'406 cohecho impropio',e68A:1,g38G:1},
-  {id:'coh_d',    art:'Art. 407 CP',  name:'Cohecho por dar u ofrecer',                                     k:'407 cohecho por dar ofrecer',e68A:1,g38G:1},
-  {id:'int_ind',  art:'Art. 409 CP',  name:'Interés indebido en la celebración de contratos',               k:'409 interes indebido celebracion contratos',e68A:1,g38G:1},
-  {id:'con_req',  art:'Art. 410 CP',  name:'Contrato sin cumplimiento de requisitos legales',               k:'410 contrato sin cumplimiento requisitos legales',e68A:1,g38G:1},
-  {id:'acu_res',  art:'Art. 410A CP', name:'Acuerdos restrictivos de la competencia',                       k:'410A acuerdos restrictivos competencia',e68A:1,g38G:1},
-  {id:'tr_inf',   art:'Art. 411 CP',  name:'Tráfico de influencias de servidor público',                    k:'411 trafico influencias servidor publico',e68A:1,g38G:1},
-  {id:'enr_il',   art:'Art. 412 CP',  name:'Enriquecimiento ilícito',                                      k:'412 enriquecimiento ilicito',e68A:1,g38G:1},
-  {id:'prev',     art:'Art. 413 CP',  name:'Prevaricato por acción',                                        k:'413 prevaricato por accion',e68A:1,g38G:1},
-  {id:'fals_t',   art:'Art. 442 CP',  name:'Falso testimonio',                                              k:'442 falso testimonio',g38G:1},
-  {id:'soborno',  art:'Art. 444 CP',  name:'Soborno',                                                       k:'444 soborno',g38G:1},
-  {id:'sob_act',  art:'Art. 444A CP', name:'Soborno en la actuación penal',                                 k:'444A soborno actuacion penal',g38G:1},
-  {id:'amn_t',    art:'Art. 454A CP', name:'Amenazas a testigo',                                            k:'454A amenazas a testigo',g38G:1},
-  {id:'ocu_pr',   art:'Art. 454B CP', name:'Ocultamiento, alteración o destrucción de elemento material probatorio', k:'454B ocultamiento alteracion destruccion elemento material probatorio',g38G:1},
-  {id:'femin',    art:'Art. 104A CP', name:'Feminicidio',                                                   k:'104A feminicidio',g38G:1},
-
-  // ── REGLA ESPECIAL 38G ────────────────────────────────────────────
-  {id:'estup',    art:'Art. 376 CP',  name:'Tráfico, fabricación o porte de estupefacientes',               k:'376 trafico fabricacion porte estupefacientes drogas cocaina marihuana heroina narcotrafico',s38G:1},
-
-  // ── SOLO 68-A ────────────────────────────────────────────────────
-  {id:'viol_if',  art:'Art. 229 CP',  name:'Violencia intrafamiliar',                                       k:'229 violencia intrafamiliar',e68A:1,vif:1},
-  {id:'hurto_c',  art:'Art. 240 CP',  name:'Hurto calificado',                                              k:'240 hurto calificado',e68A:1},
-  {id:'les_qui',  art:'Art. 116A CP', name:'Lesiones con agentes químicos, ácido y/o sustancias similares', k:'116A lesiones agentes quimicos acido sustancias',e68A:1},
-  {id:'enr_par',  art:'Art. 327 CP',  name:'Enriquecimiento ilícito de particulares',                       k:'327 enriquecimiento ilicito particulares',e68A:1},
-  {id:'sob_tr',   art:'Art. 433 CP',  name:'Soborno transnacional',                                         k:'433 soborno transnacional',e68A:1},
-  {id:'tesf',     art:'Art. 326 CP',  name:'Testaferrato',                                                   k:'326 testaferrato',e68A:1},
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// BASE DE DATOS â 342 delitos del CÃ³digo Penal
+// Flags: a199=identifica menor en el tipo | v199=verificar vÃ­ctima menor | lrt=Ley 1121 | e68A=68-A
+//        g38G=Art.38G | s38G=Especial estupefacientes art.376 | hd=homicidio/lesiones dolosas
+//        vif=violencia intrafamiliar | usm=uso de menores | usurpTerr=art.427 agravante
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+const DB=[
+  {id:'genocidio',art:'Art. 101 CP',name:'Genocidio',k:'101 genocidio',g38G:1},
+  {id:'apol_gen',art:'Art. 102 CP',name:'ApologÃ­a del genocidio',k:'102 apologia genocidio',e68A:1},
+  {id:'homicidio',art:'Art. 103 CP',name:'Homicidio',k:'103 homicidio doloso',v199:1,hd:1},
+  {id:'femin',art:'Art. 104A CP',name:'Feminicidio',k:'104A feminicidio',g38G:1},
+  {id:'cp_105',art:'Art. 105 CP',name:'Homicidio preterintencional',k:'105 homicidio preterintencional'},
+  {id:'cp_106',art:'Art. 106 CP',name:'Homicidio por piedad',k:'106 homicidio por piedad'},
+  {id:'cp_107',art:'Art. 107 CP',name:'InducciÃ³n o ayuda al suicidio',k:'107 induccion o ayuda al suicidio'},
+  {id:'cp_109',art:'Art. 109 CP',name:'Homicidio culposo',k:'109 homicidio culposo'},
+  {id:'lesiones',art:'Art. 111 CP',name:'Lesiones',k:'111 lesiones personales dolosas',v199:1,hd:1},
+  {id:'cp_116b',art:'Art. 116B CP',name:'Lesiones con sustancias modelantes no permitidas',k:'116B lesiones con sustancias modelantes no permitidas'},
+  {id:'cp_120',art:'Art. 120 CP',name:'Lesiones culposas',k:'120 lesiones culposas'},
+  {id:'cp_123',art:'Art. 123 CP',name:'Aborto sin consentimiento',k:'123 aborto sin consentimiento'},
+  {id:'cp_125',art:'Art. 125 CP',name:'Lesiones al feto',k:'125 lesiones al feto'},
+  {id:'cp_126',art:'Art. 126 CP',name:'Lesiones culposas al feto',k:'126 lesiones culposas al feto'},
+  {id:'cp_127',art:'Art. 127 CP',name:'Abandono',k:'127 abandono'},
+  {id:'cp_131',art:'Art. 131 CP',name:'OmisiÃ³n de socorro',k:'131 omision de socorro'},
+  {id:'cp_132',art:'Art. 132 CP',name:'ManipulaciÃ³n genÃ©tica',k:'132 manipulacion genetica'},
+  {id:'cp_133',art:'Art. 133 CP',name:'Repetibilidad del ser humano',k:'133 repetibilidad del ser humano'},
+  {id:'cp_134',art:'Art. 134 CP',name:'FecundaciÃ³n y trÃ¡fico de embriones humanos',k:'134 fecundacion y trafico de embriones humanos'},
+  {id:'cp_134a',art:'Art. 134A CP',name:'Actos de discriminaciÃ³n',k:'134A actos de discriminacion'},
+  {id:'cp_134b',art:'Art. 134B CP',name:'Hostigamiento',k:'134B hostigamiento'},
+  {id:'hom_pr',art:'Art. 135 CP',name:'Homicidio en persona protegida',k:'135 homicidio persona protegida DIH',g38G:1},
+  {id:'les_pr',art:'Art. 136 CP',name:'Lesiones en persona protegida',k:'136 lesiones persona protegida DIH',g38G:1},
+  {id:'tor_pr',art:'Art. 137 CP',name:'Tortura en persona protegida',k:'137 tortura persona protegida DIH',g38G:1},
+  {id:'cp_138',art:'Art. 138 CP',name:'Acceso carnal violento en persona protegida',k:'138 acceso carnal violento en persona protegida'},
+  {id:'cp_138a',art:'Art. 138A CP',name:'Acceso carnal abusivo en persona protegida menor de catorce aÃ±os',k:'138A acceso carnal abusivo en persona protegida menor de catorce anos'},
+  {id:'cp_139',art:'Art. 139 CP',name:'Actos sexuales violentos en persona protegida',k:'139 actos sexuales violentos en persona protegida'},
+  {id:'cp_139a',art:'Art. 139A CP',name:'Actos sexuales con persona protegida menor de catorce aÃ±os',k:'139A actos sexuales con persona protegida menor de catorce anos'},
+  {id:'cp_139b',art:'Art. 139B CP',name:'EsterilizaciÃ³n forzada en persona protegida',k:'139B esterilizacion forzada en persona protegida'},
+  {id:'cp_139c',art:'Art. 139C CP',name:'Embarazo forzado en persona protegida',k:'139C embarazo forzado en persona protegida'},
+  {id:'cp_139d',art:'Art. 139D CP',name:'Desnudez forzada en persona protegida',k:'139D desnudez forzada en persona protegida'},
+  {id:'cp_139e',art:'Art. 139E CP',name:'Aborto forzado en persona protegida',k:'139E aborto forzado en persona protegida'},
+  {id:'cp_141',art:'Art. 141 CP',name:'ProstituciÃ³n forzada o esclavitud sexual',k:'141 prostitucion forzada o esclavitud sexual'},
+  {id:'cp_141a',art:'Art. 141A CP',name:'Esclavitud sexual en persona protegida',k:'141A esclavitud sexual en persona protegida'},
+  {id:'cp_141b',art:'Art. 141B CP',name:'Trata de personas en persona protegida con fines de explotaciÃ³n sexual',k:'141B trata de personas en persona protegida con fines de explotacion sexual'},
+  {id:'cp_142',art:'Art. 142 CP',name:'UtilizaciÃ³n de medios y mÃ©todos de guerra ilÃ­citos',k:'142 utilizacion de medios y metodos de guerra ilicitos'},
+  {id:'cp_143',art:'Art. 143 CP',name:'Perfidia',k:'143 perfidia'},
+  {id:'cp_144',art:'Art. 144 CP',name:'Actos de terrorismo',k:'144 actos de terrorismo'},
+  {id:'cp_145',art:'Art. 145 CP',name:'Actos de barbarie',k:'145 actos de barbarie'},
+  {id:'cp_146',art:'Art. 146 CP',name:'Tratos inhumanos y degradantes y experimentos biolÃ³gicos en persona protegida',k:'146 tratos inhumanos y degradantes y experimentos biologicos en persona protegida'},
+  {id:'cp_147',art:'Art. 147 CP',name:'Actos de discriminaciÃ³n racial',k:'147 actos de discriminacion racial'},
+  {id:'cp_148',art:'Art. 148 CP',name:'Toma de rehenes',k:'148 toma de rehenes'},
+  {id:'cp_149',art:'Art. 149 CP',name:'DetenciÃ³n ilegal y privaciÃ³n del debido proceso',k:'149 detencion ilegal y privacion del debido proceso'},
+  {id:'cp_150',art:'Art. 150 CP',name:'ConstreÃ±imiento a apoyo bÃ©lico',k:'150 constrenimiento a apoyo belico'},
+  {id:'cp_151',art:'Art. 151 CP',name:'Despojo en el campo de batalla',k:'151 despojo en el campo de batalla'},
+  {id:'cp_152',art:'Art. 152 CP',name:'OmisiÃ³n de medidas de socorro y asistencia humanitaria',k:'152 omision de medidas de socorro y asistencia humanitaria'},
+  {id:'cp_153',art:'Art. 153 CP',name:'ObstaculizaciÃ³n de tareas sanitarias y humanitarias',k:'153 obstaculizacion de tareas sanitarias y humanitarias'},
+  {id:'cp_154',art:'Art. 154 CP',name:'DestrucciÃ³n y apropiaciÃ³n de bienes protegidos',k:'154 destruccion y apropiacion de bienes protegidos'},
+  {id:'cp_155',art:'Art. 155 CP',name:'DestrucciÃ³n de bienes e instalaciones de carÃ¡cter sanitario',k:'155 destruccion de bienes e instalaciones de caracter sanitario'},
+  {id:'cp_156',art:'Art. 156 CP',name:'DestrucciÃ³n o utilizaciÃ³n ilÃ­cita de bienes culturales y de lugares de culto',k:'156 destruccion o utilizacion ilicita de bienes culturales y de lugares de culto'},
+  {id:'cp_157',art:'Art. 157 CP',name:'Ataque contra obras e instalaciones que contienen fuerzas peligrosas',k:'157 ataque contra obras e instalaciones que contienen fuerzas peligrosas'},
+  {id:'cp_158',art:'Art. 158 CP',name:'Represalias',k:'158 represalias'},
+  {id:'cp_160',art:'Art. 160 CP',name:'Atentados a la subsistencia y devastaciÃ³n',k:'160 atentados a la subsistencia y devastacion'},
+  {id:'cp_161',art:'Art. 161 CP',name:'OmisiÃ³n de medidas de protecciÃ³n a la poblaciÃ³n civil',k:'161 omision de medidas de proteccion a la poblacion civil'},
+  {id:'cp_162',art:'Art. 162 CP',name:'Reclutamiento ilÃ­cito',k:'162 reclutamiento ilicito'},
+  {id:'cp_163',art:'Art. 163 CP',name:'ExacciÃ³n o contribuciones arbitrarias',k:'163 exaccion o contribuciones arbitrarias'},
+  {id:'cp_164',art:'Art. 164 CP',name:'DestrucciÃ³n del medio ambiente',k:'164 destruccion del medio ambiente'},
+  {id:'desap',art:'Art. 165 CP',name:'DesapariciÃ³n forzada',k:'165 desaparicion forzada',e68A:1,g38G:1},
+  {id:'sec_simp',art:'Art. 168 CP',name:'Secuestro simple',k:'168 secuestro simple',v199:1,lrt:1,g38G:1},
+  {id:'sec_ext',art:'Art. 169 CP',name:'Secuestro extorsivo',k:'169 secuestro extorsivo',v199:1,lrt:1,g38G:1},
+  {id:'cp_173',art:'Art. 173 CP',name:'Apoderamiento de aeronaves, naves, o medios de transporte colectivo',k:'173 apoderamiento de aeronaves, naves, o medios de transporte colectivo'},
+  {id:'cp_174',art:'Art. 174 CP',name:'PrivaciÃ³n ilegal de libertad',k:'174 privacion ilegal de libertad'},
+  {id:'cp_175',art:'Art. 175 CP',name:'ProlongaciÃ³n ilÃ­cita de privaciÃ³n de la libertad',k:'175 prolongacion ilicita de privacion de la libertad'},
+  {id:'cp_176',art:'Art. 176 CP',name:'DetenciÃ³n arbitraria especial',k:'176 detencion arbitraria especial'},
+  {id:'cp_177',art:'Art. 177 CP',name:'Desconocimiento de habeas corpus',k:'177 desconocimiento de habeas corpus'},
+  {id:'tortura',art:'Art. 178 CP',name:'Tortura',k:'178 tortura',g38G:1},
+  {id:'desplaz',art:'Art. 180 CP',name:'Desplazamiento forzado',k:'180 desplazamiento forzado',e68A:1,g38G:1},
+  {id:'cp_182',art:'Art. 182 CP',name:'ConstreÃ±imiento ilegal',k:'182 constrenimiento ilegal'},
+  {id:'cp_184',art:'Art. 184 CP',name:'ConstreÃ±imiento para delinquir',k:'184 constrenimiento para delinquir'},
+  {id:'cp_186',art:'Art. 186 CP',name:'Fraudulenta internaciÃ³n en asilo, clÃ­nica o establecimiento similar',k:'186 fraudulenta internacion en asilo, clinica o establecimiento similar'},
+  {id:'cp_187',art:'Art. 187 CP',name:'InseminaciÃ³n artificial o transferencia de Ã³vulo fecundado no consentidas',k:'187 inseminacion artificial o transferencia de ovulo fecundado no consentidas'},
+  {id:'tr_migr',art:'Art. 188 CP',name:'Del trÃ¡fico de migrantes',k:'188 trafico migrantes',e68A:1,g38G:1},
+  {id:'cp_188e',art:'Art. 188E CP',name:'Amenazas contra defensores de Derechos Humanos y servidores pÃºblicos',k:'188E amenazas contra defensores de derechos humanos y servidores publicos'},
+  {id:'cp_189',art:'Art. 189 CP',name:'ViolaciÃ³n de habitaciÃ³n ajena',k:'189 violacion de habitacion ajena'},
+  {id:'cp_190',art:'Art. 190 CP',name:'ViolaciÃ³n de habitaciÃ³n ajena por servidor pÃºblico',k:'190 violacion de habitacion ajena por servidor publico'},
+  {id:'cp_191',art:'Art. 191 CP',name:'ViolaciÃ³n en lugar de trabajo',k:'191 violacion en lugar de trabajo'},
+  {id:'cp_192',art:'Art. 192 CP',name:'ViolaciÃ³n ilÃ­cita de comunicaciones',k:'192 violacion ilicita de comunicaciones'},
+  {id:'cp_194',art:'Art. 194 CP',name:'DivulgaciÃ³n y empleo de documentos reservados',k:'194 divulgacion y empleo de documentos reservados'},
+  {id:'cp_196',art:'Art. 196 CP',name:'ViolaciÃ³n ilÃ­cita de comunicaciones o correspondencia de carÃ¡cter oficial',k:'196 violacion ilicita de comunicaciones o correspondencia de caracter oficial'},
+  {id:'cp_198',art:'Art. 198 CP',name:'ViolaciÃ³n de la libertad de trabajo',k:'198 violacion de la libertad de trabajo'},
+  {id:'cp_199',art:'Art. 199 CP',name:'Sabotaje',k:'199 sabotaje'},
+  {id:'cp_200',art:'Art. 200 CP',name:'ViolaciÃ³n de los derechos de reuniÃ³n y asociaciÃ³n',k:'200 violacion de los derechos de reunion y asociacion'},
+  {id:'cp_201',art:'Art. 201 CP',name:'ViolaciÃ³n a la libertad religiosa',k:'201 violacion a la libertad religiosa'},
+  {id:'cp_203',art:'Art. 203 CP',name:'DaÃ±os o agravios a personas o a cosas destinadas al culto',k:'203 danos o agravios a personas o a cosas destinadas al culto'},
+  {id:'cp_204',art:'Art. 204 CP',name:'Irrespeto a cadÃ¡veres',k:'204 irrespeto a cadaveres'},
+  {id:'acc_viol',art:'Art. 205 CP',name:'Acceso carnal violento',k:'205 acceso carnal violento violacion',v199:1,g38G:1},
+  {id:'act_viol',art:'Art. 206 CP',name:'Acto sexual violento',k:'206 acto sexual violento',v199:1,g38G:1},
+  {id:'acc_inc',art:'Art. 207 CP',name:'Acceso carnal o acto sexual en persona puesta en incapacidad de resistir',k:'207 acceso acto sexual incapacidad resistir',v199:1,g38G:1},
+  {id:'ac_men14',art:'Art. 208 CP',name:'Acceso carnal abusivo con menor de catorce aÃ±os',k:'208 acceso carnal abusivo menor catorce',a199:1},
+  {id:'as_men14',art:'Art. 209 CP',name:'Actos sexuales con menor de catorce aÃ±os',k:'209 actos sexuales menor catorce abusivos',a199:1},
+  {id:'ab_inc',art:'Art. 210 CP',name:'Acceso carnal o acto sexual abusivos con incapaz resistir',k:'210 abusivo incapaz resistir',v199:1,g38G:1},
+  {id:'cp_212',art:'Art. 212 CP',name:'Acceso carnal',k:'212 acceso carnal'},
+  {id:'cp_212a',art:'Art. 212A CP',name:'Violencia',k:'212A violencia'},
+  {id:'ind_pr',art:'Art. 213 CP',name:'InducciÃ³n a la prostituciÃ³n',k:'213 induccion prostitucion',v199:1,g38G:1},
+  {id:'prox_men',art:'Art. 213A CP',name:'Proxenetismo con menor de edad',k:'213A proxenetismo menor edad',a199:1},
+  {id:'con_pr',art:'Art. 214 CP',name:'ConstreÃ±imiento a la prostituciÃ³n',k:'214 constreÃ±imiento prostitucion',v199:1,g38G:1},
+  {id:'est_pmen',art:'Art. 217 CP',name:'EstÃ­mulo a la ProstituciÃ³n de Menores',k:'217 estimulo prostitucion menores',a199:1},
+  {id:'dem_expl',art:'Art. 217A CP',name:'Demanda de explotaciÃ³n sexual comercial de persona menor de 18 aÃ±os de edad',k:'217A demanda explotacion sexual comercial menor 18',a199:1},
+  {id:'porn_men',art:'Art. 218 CP',name:'PornografÃ­a con personas menores de 18 aÃ±os',k:'218 pornografia menores 18',a199:1},
+  {id:'tur_sex',art:'Art. 219 CP',name:'Turismo sexual',k:'219 turismo sexual',v199:1,g38G:1},
+  {id:'omis_d',art:'Art. 219B CP',name:'OmisiÃ³n de denuncia',k:'219B omision denuncia',v199:1,g38G:1},
+  {id:'cp_220',art:'Art. 220 CP',name:'Injuria',k:'220 injuria'},
+  {id:'cp_221',art:'Art. 221 CP',name:'Calumnia',k:'221 calumnia'},
+  {id:'cp_222',art:'Art. 222 CP',name:'Injuria y calumnia indirectas',k:'222 injuria y calumnia indirectas'},
+  {id:'cp_225',art:'Art. 225 CP',name:'RetractaciÃ³n',k:'225 retractacion'},
+  {id:'cp_226',art:'Art. 226 CP',name:'Injuria por vÃ­as de hecho',k:'226 injuria por vias de hecho'},
+  {id:'cp_227',art:'Art. 227 CP',name:'Injurias o calumnias recÃ­procas',k:'227 injurias o calumnias reciprocas'},
+  {id:'cp_228',art:'Art. 228 CP',name:'Imputaciones de litigantes',k:'228 imputaciones de litigantes'},
+  {id:'viol_if',art:'Art. 229 CP',name:'Violencia intrafamiliar',k:'229 violencia intrafamiliar',e68A:1,vif:1},
+  {id:'cp_229a',art:'Art. 229A CP',name:'Maltrato por descuido, negligencia o abandono en persona mayor de 60 aÃ±os',k:'229A maltrato por descuido, negligencia o abandono en persona mayor de 60 anos'},
+  {id:'cp_230',art:'Art. 230 CP',name:'Maltrato mediante restricciÃ³n a la libertad fÃ­sica',k:'230 maltrato mediante restriccion a la libertad fisica'},
+  {id:'cp_230a',art:'Art. 230A CP',name:'Ejercicio arbitrario de la custodia de hijo menor de edad',k:'230A ejercicio arbitrario de la custodia de hijo menor de edad'},
+  {id:'cp_232',art:'Art. 232 CP',name:'AdopciÃ³n irregular',k:'232 adopcion irregular'},
+  {id:'cp_233',art:'Art. 233 CP',name:'Inasistencia alimentaria',k:'233 inasistencia alimentaria'},
+  {id:'cp_235',art:'Art. 235 CP',name:'ReiteraciÃ³n',k:'235 reiteracion'},
+  {id:'cp_236',art:'Art. 236 CP',name:'MalversaciÃ³n y dilapidaciÃ³n de bienes de familiares',k:'236 malversacion y dilapidacion de bienes de familiares'},
+  {id:'cp_237',art:'Art. 237 CP',name:'Incesto',k:'237 incesto'},
+  {id:'cp_238',art:'Art. 238 CP',name:'SupresiÃ³n, alteraciÃ³n o suposiciÃ³n del estado civil',k:'238 supresion, alteracion o suposicion del estado civil'},
+  {id:'hurto_c',art:'Art. 240 CP',name:'Hurto calificado',k:'240 hurto calificado',e68A:1},
+  {id:'cp_243',art:'Art. 243 CP',name:'Abigeato',k:'243 abigeato'},
+  {id:'extorsion',art:'Art. 244 CP',name:'ExtorsiÃ³n',k:'244 extorsion',lrt:1,e68A:1,g38G:1},
+  {id:'cp_248',art:'Art. 248 CP',name:'EmisiÃ³n y transferencia ilegal de cheque',k:'248 emision y transferencia ilegal de cheque'},
+  {id:'cp_249',art:'Art. 249 CP',name:'Abuso de confianza',k:'249 abuso de confianza'},
+  {id:'cp_250',art:'Art. 250 CP',name:'Abuso de confianza calificado',k:'250 abuso de confianza calificado'},
+  {id:'cp_251',art:'Art. 251 CP',name:'Abuso de condiciones de inferioridad',k:'251 abuso de condiciones de inferioridad'},
+  {id:'cp_252',art:'Art. 252 CP',name:'Aprovechamiento de error ajeno o caso fortuito',k:'252 aprovechamiento de error ajeno o caso fortuito'},
+  {id:'cp_253',art:'Art. 253 CP',name:'Alzamiento de bienes',k:'253 alzamiento de bienes'},
+  {id:'cp_254',art:'Art. 254 CP',name:'SustracciÃ³n de bien propio',k:'254 sustraccion de bien propio'},
+  {id:'cp_255',art:'Art. 255 CP',name:'DisposiciÃ³n de bien propio gravado con prenda',k:'255 disposicion de bien propio gravado con prenda'},
+  {id:'cp_256',art:'Art. 256 CP',name:'DefraudaciÃ³n de fluidos',k:'256 defraudacion de fluidos'},
+  {id:'cp_257',art:'Art. 257 CP',name:'De la prestaciÃ³n, acceso o uso ilegales de los servicios de telecomunicaciones',k:'257 de la prestacion, acceso o uso ilegales de los servicios de telecomunicaciones'},
+  {id:'cp_258',art:'Art. 258 CP',name:'UtilizaciÃ³n indebida de informaciÃ³n privilegiada',k:'258 utilizacion indebida de informacion privilegiada'},
+  {id:'cp_259',art:'Art. 259 CP',name:'MalversaciÃ³n y dilapidaciÃ³n de bienes',k:'259 malversacion y dilapidacion de bienes'},
+  {id:'cp_260',art:'Art. 260 CP',name:'GestiÃ³n indebida de recursos sociales',k:'260 gestion indebida de recursos sociales'},
+  {id:'cp_261',art:'Art. 261 CP',name:'UsurpaciÃ³n de inmuebles',k:'261 usurpacion de inmuebles'},
+  {id:'cp_262',art:'Art. 262 CP',name:'UsurpaciÃ³n de aguas',k:'262 usurpacion de aguas'},
+  {id:'cp_263',art:'Art. 263 CP',name:'InvasiÃ³n de tierras o edificaciones',k:'263 invasion de tierras o edificaciones'},
+  {id:'cp_265',art:'Art. 265 CP',name:'DaÃ±o en bien ajeno',k:'265 dano en bien ajeno'},
+  {id:'cp_269a',art:'Art. 269A CP',name:'Acceso abusivo a un sistema informÃ¡tico',k:'269A acceso abusivo a un sistema informatico'},
+  {id:'cp_269b',art:'Art. 269B CP',name:'ObstaculizaciÃ³n ilegÃ­tima de sistema informÃ¡tico o red de telecomunicaciÃ³n',k:'269B obstaculizacion ilegitima de sistema informatico o red de telecomunicacion'},
+  {id:'cp_269c',art:'Art. 269C CP',name:'InterceptaciÃ³n de datos informÃ¡ticos',k:'269C interceptacion de datos informaticos'},
+  {id:'cp_269d',art:'Art. 269D CP',name:'DaÃ±o InformÃ¡tico',k:'269D dano informatico'},
+  {id:'cp_269e',art:'Art. 269E CP',name:'Uso de software malicioso',k:'269E uso de software malicioso'},
+  {id:'cp_269f',art:'Art. 269F CP',name:'ViolaciÃ³n de datos personales',k:'269F violacion de datos personales'},
+  {id:'cp_269g',art:'Art. 269G CP',name:'SuplantaciÃ³n de sitios web para capturar datos personales',k:'269G suplantacion de sitios web para capturar datos personales'},
+  {id:'cp_269i',art:'Art. 269I CP',name:'Hurto por medios informÃ¡ticos y semejantes',k:'269I hurto por medios informaticos y semejantes'},
+  {id:'cp_269j',art:'Art. 269J CP',name:'Transferencia no consentida de activos',k:'269J transferencia no consentida de activos'},
+  {id:'cp_270',art:'Art. 270 CP',name:'ViolaciÃ³n a los derechos morales de autor',k:'270 violacion a los derechos morales de autor'},
+  {id:'cp_271',art:'Art. 271 CP',name:'ViolaciÃ³n a los derechos patrimoniales de autor y derechos conexos',k:'271 violacion a los derechos patrimoniales de autor y derechos conexos'},
+  {id:'cp_273',art:'Art. 273 CP',name:'FalsificaciÃ³n de moneda nacional o extranjera',k:'273 falsificacion de moneda nacional o extranjera'},
+  {id:'cp_274',art:'Art. 274 CP',name:'TrÃ¡fico de moneda falsificada',k:'274 trafico de moneda falsificada'},
+  {id:'cp_276',art:'Art. 276 CP',name:'EMISIONES ILEGALES',k:'276 emisiones ilegales'},
+  {id:'cp_277',art:'Art. 277 CP',name:'CirculaciÃ³n ilegal de monedas',k:'277 circulacion ilegal de monedas'},
+  {id:'cp_278',art:'Art. 278 CP',name:'Valores equiparados a moneda',k:'278 valores equiparados a moneda'},
+  {id:'cp_279',art:'Art. 279 CP',name:'FalsificaciÃ³n o uso fraudulento de sello oficial',k:'279 falsificacion o uso fraudulento de sello oficial'},
+  {id:'cp_280',art:'Art. 280 CP',name:'FalsificaciÃ³n de efecto oficial timbrado',k:'280 falsificacion de efecto oficial timbrado'},
+  {id:'cp_281',art:'Art. 281 CP',name:'CirculaciÃ³n y uso de efecto oficial o sello falsificado',k:'281 circulacion y uso de efecto oficial o sello falsificado'},
+  {id:'cp_282',art:'Art. 282 CP',name:'EmisiÃ³n ilegal de efectos oficiales',k:'282 emision ilegal de efectos oficiales'},
+  {id:'cp_283',art:'Art. 283 CP',name:'SupresiÃ³n de signo de anulaciÃ³n de efecto oficial',k:'283 supresion de signo de anulacion de efecto oficial'},
+  {id:'cp_284',art:'Art. 284 CP',name:'Uso y circulaciÃ³n de efecto oficial anulado',k:'284 uso y circulacion de efecto oficial anulado'},
+  {id:'cp_285',art:'Art. 285 CP',name:'Falsedad marcaria',k:'285 falsedad marcaria'},
+  {id:'cp_286',art:'Art. 286 CP',name:'Falsedad ideolÃ³gica en documento pÃºblico',k:'286 falsedad ideologica en documento publico'},
+  {id:'cp_287',art:'Art. 287 CP',name:'Falsedad material en documento pÃºblico',k:'287 falsedad material en documento publico'},
+  {id:'cp_288',art:'Art. 288 CP',name:'ObtenciÃ³n de documento pÃºblico falso',k:'288 obtencion de documento publico falso'},
+  {id:'cp_289',art:'Art. 289 CP',name:'Falsedad en documento privado',k:'289 falsedad en documento privado'},
+  {id:'cp_291',art:'Art. 291 CP',name:'Uso de documento falso',k:'291 uso de documento falso'},
+  {id:'cp_292',art:'Art. 292 CP',name:'DestrucciÃ³n, supresiÃ³n u ocultamiento de documento pÃºblico',k:'292 destruccion, supresion u ocultamiento de documento publico'},
+  {id:'cp_293',art:'Art. 293 CP',name:'DestrucciÃ³n, supresiÃ³n y ocultamiento de documento privado',k:'293 destruccion, supresion y ocultamiento de documento privado'},
+  {id:'cp_294',art:'Art. 294 CP',name:'Documento',k:'294 documento'},
+  {id:'cp_295',art:'Art. 295 CP',name:'Falsedad para obtener prueba de hecho verdadero',k:'295 falsedad para obtener prueba de hecho verdadero'},
+  {id:'cp_296',art:'Art. 296 CP',name:'FALSEDAD PERSONAL',k:'296 falsedad personal'},
+  {id:'cp_297',art:'Art. 297 CP',name:'Acaparamiento',k:'297 acaparamiento'},
+  {id:'cp_298',art:'Art. 298 CP',name:'ESPECULACION',k:'298 especulacion'},
+  {id:'cp_300',art:'Art. 300 CP',name:'Ofrecimiento engaÃ±oso de productos y servicios',k:'300 ofrecimiento enganoso de productos y servicios'},
+  {id:'cp_301',art:'Art. 301 CP',name:'Agiotaje',k:'301 agiotaje'},
+  {id:'cp_302',art:'Art. 302 CP',name:'PÃ¡nico econÃ³mico',k:'302 panico economico'},
+  {id:'cp_304',art:'Art. 304 CP',name:'DaÃ±o en materia prima, producto agropecuario o industrial',k:'304 dano en materia prima, producto agropecuario o industrial'},
+  {id:'cp_307',art:'Art. 307 CP',name:'Uso ilegÃ­timo de patentes',k:'307 uso ilegitimo de patentes'},
+  {id:'cp_308',art:'Art. 308 CP',name:'ViolaciÃ³n de reserva industrial o comercial',k:'308 violacion de reserva industrial o comercial'},
+  {id:'cp_309',art:'Art. 309 CP',name:'SustracciÃ³n de cosa propia al cumplimiento de deberes constitucionales o legales',k:'309 sustraccion de cosa propia al cumplimiento de deberes constitucionales o legales'},
+  {id:'cp_310',art:'Art. 310 CP',name:'ExportaciÃ³n o importaciÃ³n ficticia',k:'310 exportacion o importacion ficticia'},
+  {id:'cp_311',art:'Art. 311 CP',name:'AplicaciÃ³n fraudulenta de crÃ©dito oficialmente regulado',k:'311 aplicacion fraudulenta de credito oficialmente regulado'},
+  {id:'cp_312',art:'Art. 312 CP',name:'Ejercicio ilÃ­cito de actividad monopolÃ­stica de arbitrio rentÃ­stico',k:'312 ejercicio ilicito de actividad monopolistica de arbitrio rentistico'},
+  {id:'cp_313',art:'Art. 313 CP',name:'EvasiÃ³n fiscal',k:'313 evasion fiscal'},
+  {id:'cp_314',art:'Art. 314 CP',name:'UtilizaciÃ³n indebida de fondos captados del pÃºblico',k:'314 utilizacion indebida de fondos captados del publico'},
+  {id:'cp_315',art:'Art. 315 CP',name:'Operaciones no autorizadas con accionistas o asociados',k:'315 operaciones no autorizadas con accionistas o asociados'},
+  {id:'cp_316',art:'Art. 316 CP',name:'CaptaciÃ³n masiva y habitual de dinero',k:'316 captacion masiva y habitual de dinero'},
+  {id:'cp_318',art:'Art. 318 CP',name:'UrbanizaciÃ³n ilegal',k:'318 urbanizacion ilegal'},
+  {id:'cp_319',art:'Art. 319 CP',name:'Contrabando',k:'319 contrabando'},
+  {id:'cp_320',art:'Art. 320 CP',name:'Favorecimiento y facilitaciÃ³n del contrabando',k:'320 favorecimiento y facilitacion del contrabando'},
+  {id:'cp_321',art:'Art. 321 CP',name:'Fraude Aduanero',k:'321 fraude aduanero'},
+  {id:'cp_322',art:'Art. 322 CP',name:'Favorecimiento por servidor pÃºblico',k:'322 favorecimiento por servidor publico'},
+  {id:'lavado',art:'Art. 323 CP',name:'Lavado de activos',k:'323 lavado activos',e68A:1,g38G:1},
+  {id:'cp_325',art:'Art. 325 CP',name:'OmisiÃ³n de control',k:'325 omision de control'},
+  {id:'cp_325b',art:'Art. 325B CP',name:'OmisiÃ³n de control en el sector de la salud',k:'325B omision de control en el sector de la salud'},
+  {id:'tesf',art:'Art. 326 CP',name:'Testaferrato',k:'326 testaferrato',e68A:1},
+  {id:'enr_par',art:'Art. 327 CP',name:'Enriquecimiento ilÃ­cito de particulares',k:'327 enriquecimiento ilicito particulares',e68A:1},
+  {id:'cp_327b',art:'Art. 327B CP',name:'Apoderamiento o alteraciÃ³n de sistemas de identificaciÃ³n',k:'327B apoderamiento o alteracion de sistemas de identificacion'},
+  {id:'cp_327c',art:'Art. 327C CP',name:'ReceptaciÃ³n',k:'327C receptacion'},
+  {id:'cp_327d',art:'Art. 327D CP',name:'DestinaciÃ³n ilegal de combustibles',k:'327D destinacion ilegal de combustibles'},
+  {id:'cp_328',art:'Art. 328 CP',name:'Aprovechamiento ilÃ­cito de los recursos naturales renovables',k:'328 aprovechamiento ilicito de los recursos naturales renovables'},
+  {id:'cp_328a',art:'Art. 328A CP',name:'TrÃ¡fico de fauna',k:'328A trafico de fauna'},
+  {id:'cp_328b',art:'Art. 328B CP',name:'Caza ilegal',k:'328B caza ilegal'},
+  {id:'cp_328c',art:'Art. 328C CP',name:'Pesca ilegal',k:'328C pesca ilegal'},
+  {id:'cp_329',art:'Art. 329 CP',name:'Manejo ilÃ­cito de especies exÃ³ticas',k:'329 manejo ilicito de especies exoticas'},
+  {id:'cp_330',art:'Art. 330 CP',name:'DeforestaciÃ³n',k:'330 deforestacion'},
+  {id:'cp_330a',art:'Art. 330A CP',name:'PromociÃ³n y financiaciÃ³n de la deforestaciÃ³n',k:'330A promocion y financiacion de la deforestacion'},
+  {id:'cp_332',art:'Art. 332 CP',name:'ExplotaciÃ³n ilÃ­cita de yacimiento minero y otros materiales',k:'332 explotacion ilicita de yacimiento minero y otros materiales'},
+  {id:'cp_333',art:'Art. 333 CP',name:'DaÃ±os en los recursos naturales y ecocidio',k:'333 danos en los recursos naturales y ecocidio'},
+  {id:'cp_334',art:'Art. 334 CP',name:'ContaminaciÃ³n ambiental',k:'334 contaminacion ambiental'},
+  {id:'cp_334a',art:'Art. 334A CP',name:'ContaminaciÃ³n ambiental por explotaciÃ³n de yacimiento minero o hidrocarburo',k:'334A contaminacion ambiental por explotacion de yacimiento minero o hidrocarburo'},
+  {id:'cp_335',art:'Art. 335 CP',name:'ExperimentaciÃ³n ilegal con especies, agentes biolÃ³gicos o bioquÃ­micos',k:'335 experimentacion ilegal con especies, agentes biologicos o bioquimicos'},
+  {id:'cp_336',art:'Art. 336 CP',name:'InvasiÃ³n de Ã¡reas de especial importancia ecolÃ³gica',k:'336 invasion de areas de especial importancia ecologica'},
+  {id:'cp_336a',art:'Art. 336A CP',name:'FinanciaciÃ³n de invasiÃ³n a Ã¡reas de especial importancia ecolÃ³gica',k:'336A financiacion de invasion a areas de especial importancia ecologica'},
+  {id:'cp_337',art:'Art. 337 CP',name:'ApropiaciÃ³n ilegal de baldÃ­os de la NaciÃ³n',k:'337 apropiacion ilegal de baldios de la nacion'},
+  {id:'cp_337a',art:'Art. 337A CP',name:'FinanciaciÃ³n de la apropiaciÃ³n ilegal de los baldÃ­os de la naciÃ³n',k:'337A financiacion de la apropiacion ilegal de los baldios de la nacion'},
+  {id:'cp_339',art:'Art. 339 CP',name:'Modalidad culposa',k:'339 modalidad culposa'},
+  {id:'cp_339a',art:'Art. 339A CP',name:'Muerte al animal',k:'339A muerte al animal'},
+  {id:'cp_339c',art:'Art. 339C CP',name:'Lesiones que menoscaben gravemente la salud o la integridad fÃ­sica del animal',k:'339C lesiones que menoscaben gravemente la salud o la integridad fisica del animal'},
+  {id:'con_agr',art:'Art. 340 CP',name:'Concierto para delinquir',k:'340 concierto delinquir agravado',e68A:1,g38G:1},
+  {id:'cp_340a',art:'Art. 340A CP',name:'Asesoramiento a Grupos Delictivos Organizados y Grupos Armados Organizados',k:'340A asesoramiento a grupos delictivos organizados y grupos armados organizados'},
+  {id:'cp_341',art:'Art. 341 CP',name:'Entrenamiento para actividades ilÃ­citas',k:'341 entrenamiento para actividades ilicitas'},
+  {id:'terror',art:'Art. 343 CP',name:'Terrorismo',k:'343 terrorismo',lrt:1,e68A:1,g38G:1},
+  {id:'cp_347',art:'Art. 347 CP',name:'Amenazas',k:'347 amenazas'},
+  {id:'cp_348',art:'Art. 348 CP',name:'InstigaciÃ³n a delinquir',k:'348 instigacion a delinquir'},
+  {id:'cp_349',art:'Art. 349 CP',name:'IncitaciÃ³n a la comisiÃ³n de delitos militares',k:'349 incitacion a la comision de delitos militares'},
+  {id:'cp_350',art:'Art. 350 CP',name:'Incendio',k:'350 incendio'},
+  {id:'cp_351',art:'Art. 351 CP',name:'DaÃ±o en obras de utilidad social',k:'351 dano en obras de utilidad social'},
+  {id:'cp_352',art:'Art. 352 CP',name:'ProvocaciÃ³n de inundaciÃ³n o derrumbe',k:'352 provocacion de inundacion o derrumbe'},
+  {id:'cp_354',art:'Art. 354 CP',name:'Siniestro o daÃ±o de nave',k:'354 siniestro o dano de nave'},
+  {id:'cp_356',art:'Art. 356 CP',name:'Disparo de arma de fuego contra vehÃ­culo',k:'356 disparo de arma de fuego contra vehiculo'},
+  {id:'cp_360',art:'Art. 360 CP',name:'Modalidad culposa',k:'360 modalidad culposa'},
+  {id:'cp_361',art:'Art. 361 CP',name:'IntroducciÃ³n de residuos nucleares y de desechos tÃ³xicos',k:'361 introduccion de residuos nucleares y de desechos toxicos'},
+  {id:'cp_363',art:'Art. 363 CP',name:'TrÃ¡fico, transporte y posesiÃ³n de materiales radiactivos o sustancias nucleares',k:'363 trafico, transporte y posesion de materiales radiactivos o sustancias nucleares'},
+  {id:'cp_364',art:'Art. 364 CP',name:'ObstrucciÃ³n de obras de defensa o de asistencia',k:'364 obstruccion de obras de defensa o de asistencia'},
+  {id:'cp_365',art:'Art. 365 CP',name:'FabricaciÃ³n, trÃ¡fico y porte de armas de fuego o municiones',k:'365 fabricacion, trafico y porte de armas de fuego o municiones'},
+  {id:'cp_367a',art:'Art. 367A CP',name:'Empleo, producciÃ³n, comercializaciÃ³n y almacenamiento de minas antipersonal',k:'367A empleo, produccion, comercializacion y almacenamiento de minas antipersonal'},
+  {id:'cp_367b',art:'Art. 367B CP',name:'Ayuda e inducciÃ³n al empleo, producciÃ³n y transferencia de minas antipersonal',k:'367B ayuda e induccion al empleo, produccion y transferencia de minas antipersonal'},
+  {id:'cp_367c',art:'Art. 367C CP',name:'Porte de arma blanca',k:'367C porte de arma blanca'},
+  {id:'cp_368',art:'Art. 368 CP',name:'ViolaciÃ³n de medidas sanitarias',k:'368 violacion de medidas sanitarias'},
+  {id:'cp_369',art:'Art. 369 CP',name:'PropagaciÃ³n de epidemia',k:'369 propagacion de epidemia'},
+  {id:'cp_371',art:'Art. 371 CP',name:'ContaminaciÃ³n de aguas',k:'371 contaminacion de aguas'},
+  {id:'cp_372',art:'Art. 372 CP',name:'CorrupciÃ³n de alimentos, productos mÃ©dicos o material profilÃ¡ctico',k:'372 corrupcion de alimentos, productos medicos o material profilactico'},
+  {id:'cp_373',art:'Art. 373 CP',name:'ImitaciÃ³n o simulaciÃ³n de alimentos, productos o sustancias',k:'373 imitacion o simulacion de alimentos, productos o sustancias'},
+  {id:'cp_374',art:'Art. 374 CP',name:'FabricaciÃ³n y comercializaciÃ³n de sustancias nocivas para la salud',k:'374 fabricacion y comercializacion de sustancias nocivas para la salud'},
+  {id:'cp_375',art:'Art. 375 CP',name:'ConservaciÃ³n o financiaciÃ³n de plantaciones',k:'375 conservacion o financiacion de plantaciones'},
+  {id:'estup',art:'Art. 376 CP',name:'TrÃ¡fico, fabricaciÃ³n o porte de estupefacientes',k:'376 trafico fabricacion porte estupefacientes drogas cocaina marihuana heroina narcotrafico',s38G:1},
+  {id:'dest_il',art:'Art. 377 CP',name:'DestinaciÃ³n ilÃ­cita de muebles o inmuebles',k:'377 destinacion ilicita muebles inmuebles',g38G:1},
+  {id:'semis',art:'Art. 377A CP',name:'Uso, construcciÃ³n, comercializaciÃ³n y/o tenencia de semisumergibles o sumergibles',k:'377A semisumergibles sumergibles',g38G:1},
+  {id:'est_il',art:'Art. 378 CP',name:'EstÃ­mulo al uso ilÃ­cito',k:'378 estimulo uso ilicito drogas',g38G:1},
+  {id:'sum_fo',art:'Art. 379 CP',name:'Suministro o formulaciÃ³n ilegal',k:'379 suministro formulacion ilegal',g38G:1},
+  {id:'sum_dep',art:'Art. 380 CP',name:'Suministro o formulaciÃ³n ilegal a deportistas',k:'380 suministro deportistas',g38G:1},
+  {id:'sum_men',art:'Art. 381 CP',name:'Suministro a menor',k:'381 suministro menor drogas',g38G:1},
+  {id:'tr_sus',art:'Art. 382 CP',name:'TrÃ¡fico de sustancias para procesamiento de narcÃ³ticos',k:'382 trafico sustancias narcoticos precursores',g38G:1},
+  {id:'porte_s',art:'Art. 383 CP',name:'Porte de sustancias',k:'383 porte sustancias escopolamina',g38G:1},
+  {id:'pistas',art:'Art. 385 CP',name:'Existencia, construcciÃ³n y utilizaciÃ³n ilegal de pistas de aterrizaje',k:'385 pistas aterrizaje',g38G:1},
+  {id:'cp_387',art:'Art. 387 CP',name:'ConstreÃ±imiento al sufragante',k:'387 constrenimiento al sufragante'},
+  {id:'cp_388',art:'Art. 388 CP',name:'Fraude al sufragante',k:'388 fraude al sufragante'},
+  {id:'cp_389',art:'Art. 389 CP',name:'Fraude en inscripciÃ³n de cÃ©dulas',k:'389 fraude en inscripcion de cedulas'},
+  {id:'cp_389a',art:'Art. 389A CP',name:'ElecciÃ³n ilÃ­cita de candidatos',k:'389A eleccion ilicita de candidatos'},
+  {id:'cp_390',art:'Art. 390 CP',name:'CorrupciÃ³n de sufragante',k:'390 corrupcion de sufragante'},
+  {id:'cp_390a',art:'Art. 390A CP',name:'TrÃ¡fico de votos',k:'390A trafico de votos'},
+  {id:'cp_391',art:'Art. 391 CP',name:'Voto fraudulento',k:'391 voto fraudulento'},
+  {id:'cp_392',art:'Art. 392 CP',name:'Favorecimiento de voto fraudulento',k:'392 favorecimiento de voto fraudulento'},
+  {id:'cp_393',art:'Art. 393 CP',name:'Mora en la entrega de documentos relacionados con una votaciÃ³n',k:'393 mora en la entrega de documentos relacionados con una votacion'},
+  {id:'cp_394',art:'Art. 394 CP',name:'AlteraciÃ³n de resultados electorales',k:'394 alteracion de resultados electorales'},
+  {id:'cp_395',art:'Art. 395 CP',name:'Ocultamiento, retenciÃ³n y posesiÃ³n ilÃ­cita de cÃ©dula',k:'395 ocultamiento, retencion y posesion ilicita de cedula'},
+  {id:'cp_396',art:'Art. 396 CP',name:'DenegaciÃ³n de inscripciÃ³n',k:'396 denegacion de inscripcion'},
+  {id:'cp_396a',art:'Art. 396A CP',name:'FinanciaciÃ³n de campaÃ±as electorales con fuentes prohibidas',k:'396A financiacion de campanas electorales con fuentes prohibidas'},
+  {id:'cp_396b',art:'Art. 396B CP',name:'ViolaciÃ³n de los topes o lÃ­mites de gastos en las campaÃ±as electorales',k:'396B violacion de los topes o limites de gastos en las campanas electorales'},
+  {id:'cp_396c',art:'Art. 396C CP',name:'OmisiÃ³n de informaciÃ³n del aportante',k:'396C omision de informacion del aportante'},
+  {id:'peculado',art:'Art. 397 CP',name:'Peculado por apropiaciÃ³n',k:'397 peculado apropiacion',e68A:1,g38G:1},
+  {id:'cp_398',art:'Art. 398 CP',name:'Peculado por uso',k:'398 peculado por uso'},
+  {id:'cp_399',art:'Art. 399 CP',name:'Peculado por aplicaciÃ³n oficial diferente',k:'399 peculado por aplicacion oficial diferente'},
+  {id:'cp_400',art:'Art. 400 CP',name:'Peculado culposo',k:'400 peculado culposo'},
+  {id:'cp_400a',art:'Art. 400A CP',name:'Peculado culposo frente a recursos de la seguridad social integral',k:'400A peculado culposo frente a recursos de la seguridad social integral'},
+  {id:'cp_402',art:'Art. 402 CP',name:'OmisiÃ³n del agente retenedor o recaudador',k:'402 omision del agente retenedor o recaudador'},
+  {id:'cp_403a',art:'Art. 403A CP',name:'Fraude de subvenciones',k:'403A fraude de subvenciones'},
+  {id:'concusion',art:'Art. 404 CP',name:'ConcusiÃ³n',k:'404 concusion',e68A:1,g38G:1},
+  {id:'coh_p',art:'Art. 405 CP',name:'Cohecho propio',k:'405 cohecho propio',e68A:1,g38G:1},
+  {id:'coh_i',art:'Art. 406 CP',name:'Cohecho impropio',k:'406 cohecho impropio',e68A:1,g38G:1},
+  {id:'coh_d',art:'Art. 407 CP',name:'Cohecho por dar u ofrecer',k:'407 cohecho dar ofrecer',e68A:1,g38G:1},
+  {id:'int_ind',art:'Art. 409 CP',name:'InterÃ©s indebido en la celebraciÃ³n de contratos',k:'409 interes indebido contratos',e68A:1,g38G:1},
+  {id:'con_req',art:'Art. 410 CP',name:'Contrato sin cumplimiento de requisitos legales',k:'410 contrato requisitos legales',e68A:1,g38G:1},
+  {id:'acu_res',art:'Art. 410A CP',name:'Acuerdos restrictivos de la competencia',k:'410A acuerdos restrictivos competencia',e68A:1,g38G:1},
+  {id:'tr_inf',art:'Art. 411 CP',name:'TrÃ¡fico de influencias de servidor pÃºblico',k:'411 trafico influencias servidor publico',e68A:1,g38G:1},
+  {id:'cp_411a',art:'Art. 411A CP',name:'TrÃ¡fico de influencias de particular',k:'411A trafico de influencias de particular'},
+  {id:'enr_il',art:'Art. 412 CP',name:'Enriquecimiento ilÃ­cito',k:'412 enriquecimiento ilicito',e68A:1,g38G:1},
+  {id:'prev',art:'Art. 413 CP',name:'Prevaricato por acciÃ³n',k:'413 prevaricato accion',e68A:1,g38G:1},
+  {id:'cp_414',art:'Art. 414 CP',name:'Prevaricato por omisiÃ³n',k:'414 prevaricato por omision'},
+  {id:'cp_416',art:'Art. 416 CP',name:'Abuso de autoridad por acto arbitrario e injusto',k:'416 abuso de autoridad por acto arbitrario e injusto'},
+  {id:'cp_417',art:'Art. 417 CP',name:'Abuso de autoridad por omisiÃ³n de denuncia',k:'417 abuso de autoridad por omision de denuncia'},
+  {id:'cp_421',art:'Art. 421 CP',name:'Asesoramiento y otras actuaciones ilegales',k:'421 asesoramiento y otras actuaciones ilegales'},
+  {id:'cp_422',art:'Art. 422 CP',name:'IntervenciÃ³n en polÃ­tica',k:'422 intervencion en politica'},
+  {id:'cp_423',art:'Art. 423 CP',name:'Empleo ilegal de la fuerza pÃºblica',k:'423 empleo ilegal de la fuerza publica'},
+  {id:'cp_424',art:'Art. 424 CP',name:'OmisiÃ³n de apoyo',k:'424 omision de apoyo'},
+  {id:'usurp_fp',art:'Art. 425 CP',name:'UsurpaciÃ³n de funciones pÃºblicas',k:'425 usurpacion funciones publicas',usurpTerr:1},
+  {id:'cp_426',art:'Art. 426 CP',name:'SimulaciÃ³n de investidura o cargo',k:'426 simulacion de investidura o cargo'},
+  {id:'cp_427',art:'Art. 427 CP',name:'UsurpaciÃ³n y abuso de funciones pÃºblicas con fines terroristas',k:'427 usurpacion y abuso de funciones publicas con fines terroristas'},
+  {id:'cp_428',art:'Art. 428 CP',name:'Abuso de funciÃ³n pÃºblica',k:'428 abuso de funcion publica'},
+  {id:'cp_429',art:'Art. 429 CP',name:'Violencia contra servidor pÃºblico',k:'429 violencia contra servidor publico'},
+  {id:'cp_429b',art:'Art. 429B CP',name:'Declarado Inexequible',k:'429B declarado inexequible'},
+  {id:'cp_429d',art:'Art. 429D CP',name:'ObstrucciÃ³n a la funciÃ³n pÃºblica',k:'429D obstruccion a la funcion publica'},
+  {id:'cp_431',art:'Art. 431 CP',name:'UtilizaciÃ³n indebida de informaciÃ³n obtenida en el ejercicio de funciÃ³n pÃºblica',k:'431 utilizacion indebida de informacion obtenida en el ejercicio de funcion publica'},
+  {id:'cp_432',art:'Art. 432 CP',name:'UtilizaciÃ³n indebida de influencias derivadas del ejercicio de funciÃ³n pÃºblica',k:'432 utilizacion indebida de influencias derivadas del ejercicio de funcion publica'},
+  {id:'sob_tr',art:'Art. 433 CP',name:'Soborno transnacional',k:'433 soborno transnacional',e68A:1},
+  {id:'cp_434',art:'Art. 434 CP',name:'AsociaciÃ³n para la comisiÃ³n de un delito contra la administraciÃ³n pÃºblica',k:'434 asociacion para la comision de un delito contra la administracion publica'},
+  {id:'cp_434a',art:'Art. 434A CP',name:'OmisiÃ³n de activos o inclusiÃ³n de pasivos inexistentes',k:'434A omision de activos o inclusion de pasivos inexistentes'},
+  {id:'cp_434b',art:'Art. 434B CP',name:'DefraudaciÃ³n o evasiÃ³n tributaria',k:'434B defraudacion o evasion tributaria'},
+  {id:'cp_435',art:'Art. 435 CP',name:'Falsa denuncia',k:'435 falsa denuncia'},
+  {id:'cp_436',art:'Art. 436 CP',name:'Falsa denuncia contra persona determinada',k:'436 falsa denuncia contra persona determinada'},
+  {id:'cp_437',art:'Art. 437 CP',name:'Falsa autoacusaciÃ³n',k:'437 falsa autoacusacion'},
+  {id:'cp_439',art:'Art. 439 CP',name:'ReducciÃ³n cualitativa de pena en caso de contravenciÃ³n',k:'439 reduccion cualitativa de pena en caso de contravencion'},
+  {id:'cp_441',art:'Art. 441 CP',name:'OmisiÃ³n de denuncia de particular',k:'441 omision de denuncia de particular'},
+  {id:'fals_t',art:'Art. 442 CP',name:'Falso testimonio',k:'442 falso testimonio',g38G:1},
+  {id:'soborno',art:'Art. 444 CP',name:'Soborno',k:'444 soborno',g38G:1},
+  {id:'sob_act',art:'Art. 444A CP',name:'Soborno en la actuaciÃ³n penal',k:'444A soborno actuacion penal',g38G:1},
+  {id:'cp_445',art:'Art. 445 CP',name:'Infidelidad a los deberes profesionales',k:'445 infidelidad a los deberes profesionales'},
+  {id:'cp_446',art:'Art. 446 CP',name:'Favorecimiento',k:'446 favorecimiento'},
+  {id:'cp_447',art:'Art. 447 CP',name:'ReceptaciÃ³n',k:'447 receptacion'},
+  {id:'cp_448',art:'Art. 448 CP',name:'Fuga de presos',k:'448 fuga de presos'},
+  {id:'cp_449',art:'Art. 449 CP',name:'Favorecimiento de la fuga',k:'449 favorecimiento de la fuga'},
+  {id:'cp_453',art:'Art. 453 CP',name:'Fraude procesal',k:'453 fraude procesal'},
+  {id:'cp_454',art:'Art. 454 CP',name:'Fraude a resoluciÃ³n judicial o administrativa de policÃ­a',k:'454 fraude a resolucion judicial o administrativa de policia'},
+  {id:'amn_t',art:'Art. 454A CP',name:'Amenazas a testigo',k:'454A amenazas testigo',g38G:1},
+  {id:'ocu_pr',art:'Art. 454B CP',name:'Ocultamiento, alteraciÃ³n o destrucciÃ³n de elemento material probatorio',k:'454B ocultamiento destruccion prueba',g38G:1},
+  {id:'cp_455',art:'Art. 455 CP',name:'Menoscabo de la integridad nacional',k:'455 menoscabo de la integridad nacional'},
+  {id:'cp_456',art:'Art. 456 CP',name:'Hostilidad militar',k:'456 hostilidad militar'},
+  {id:'cp_457',art:'Art. 457 CP',name:'TraiciÃ³n diplomÃ¡tica',k:'457 traicion diplomatica'},
+  {id:'cp_458',art:'Art. 458 CP',name:'InstigaciÃ³n a la guerra',k:'458 instigacion a la guerra'},
+  {id:'cp_459',art:'Art. 459 CP',name:'Atentados contra hitos fronterizos',k:'459 atentados contra hitos fronterizos'},
+  {id:'cp_460',art:'Art. 460 CP',name:'Actos contrarios a la defensa de la NaciÃ³n',k:'460 actos contrarios a la defensa de la nacion'},
+  {id:'cp_462',art:'Art. 462 CP',name:'AceptaciÃ³n indebida de honores',k:'462 aceptacion indebida de honores'},
+  {id:'cp_463',art:'Art. 463 CP',name:'Espionaje',k:'463 espionaje'},
+  {id:'cp_464',art:'Art. 464 CP',name:'ViolaciÃ³n de tregua o armisticio',k:'464 violacion de tregua o armisticio'},
+  {id:'cp_465',art:'Art. 465 CP',name:'ViolaciÃ³n de inmunidad diplomÃ¡tica',k:'465 violacion de inmunidad diplomatica'},
+  {id:'cp_466',art:'Art. 466 CP',name:'Ofensa a diplomÃ¡ticos',k:'466 ofensa a diplomaticos'},
+  {id:'cp_467',art:'Art. 467 CP',name:'RebeliÃ³n',k:'467 rebelion'},
+  {id:'cp_468',art:'Art. 468 CP',name:'SediciÃ³n',k:'468 sedicion'},
+  {id:'cp_469',art:'Art. 469 CP',name:'Asonada',k:'469 asonada'},
+  {id:'cp_471',art:'Art. 471 CP',name:'ConspiraciÃ³n',k:'471 conspiracion'},
+  {id:'cp_472',art:'Art. 472 CP',name:'SeducciÃ³n, usurpaciÃ³n y retenciÃ³n ilegal de mando',k:'472 seduccion, usurpacion y retencion ilegal de mando'}
 ];
-
-// ═══════════════════════════════════════════════════════
-// DEFINICIÓN DE LOS 5 SUBROGADOS / SUSTITUTOS
-// check(c) devuelve array de {l, src, msg}
-// El delito (c) se adjunta en runAnalysis al iterar
-// ═══════════════════════════════════════════════════════
-const SUBS = [
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// SUBROGADOS / SUSTITUTOS
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+const SUBS=[
   {
     id:'s63',
-    name:'Suspensión condicional de la ejecución de la pena',
+    name:'SuspensiÃ³n condicional de la ejecuciÃ³n de la pena',
     norm:'Art. 63 CP',
     reqs:[
-      'Pena impuesta no superior a 4 años de prisión',
+      'Pena impuesta no superior a 4 aÃ±os de prisiÃ³n',
       'No tener condena anterior por delito doloso',
-      'Pronóstico favorable de no comisión de nuevos delitos',
-      'Reparación a la víctima o garantía de pago (caución)',
+      'PronÃ³stico favorable de no comisiÃ³n de nuevos delitos',
+      'ReparaciÃ³n a la vÃ­ctima o garantÃ­a de pago (cauciÃ³n)',
     ],
     check(c){
       const r=[];
-      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la víctima como menor de edad — excluye directamente.'});
-      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la víctima era menor de 18 años. Verificar en la sentencia.'});
-      if(c.lrt) r.push({l:'excl',src:'Art. 26 Ley 1121/2006',msg:'Delito excluido por la Ley Antiterrorismo (terrorismo, secuestro, extorsión y financiación).'});
-      if(c.e68A) r.push({l:'excl',src:'Art. 68-A CP',msg:'Delito en el catálogo de exclusión general del art. 68-A CP.'});
-      if(c.usurpTerr) r.push({l:'verify',src:'Art. 427 CP — agravante terrorismo',msg:'Verificar en la sentencia: si el delito fue agravado por finalidad terrorista (art. 427 CP), quedaría en el catálogo del art. 68-A CP.'});
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la vÃ­ctima como menor de edad â excluye directamente.'});
+      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la vÃ­ctima era menor de 18 aÃ±os. Verificar en la sentencia.'});
+      if(c.lrt) r.push({l:'excl',src:'Art. 26 Ley 1121/2006',msg:'Delito excluido por la Ley Antiterrorismo (terrorismo, secuestro, extorsiÃ³n y financiaciÃ³n).'});
+      if(c.e68A) r.push({l:'excl',src:'Art. 68-A CP',msg:'Delito en el catÃ¡logo de exclusiÃ³n general del art. 68-A CP.'});
+      if(c.usurpTerr) r.push({l:'verify',src:'Art. 427 CP â agravante terrorismo',msg:'Verificar en la sentencia: si fue agravado por finalidad terrorista (art. 427 CP), queda en el catÃ¡logo del art. 68-A CP.'});
       return r;
     }
   },
   {
     id:'s38b',
-    name:'Prisión domiciliaria en sentencia',
+    name:'PrisiÃ³n domiciliaria en sentencia',
     norm:'Art. 38-B CP',
     reqs:[
-      'Pena impuesta no superior a 8 años de prisión',
+      'Pena impuesta no superior a 8 aÃ±os de prisiÃ³n',
       'Domicilio conocido y arraigo familiar, laboral o social',
-      'Pronóstico favorable de no reincidencia',
-      'Caución o mecanismo de vigilancia electrónica',
+      'PronÃ³stico favorable de no reincidencia',
+      'CauciÃ³n o mecanismo de vigilancia electrÃ³nica',
     ],
     check(c){
       const r=[];
-      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la víctima como menor de edad — excluye directamente.'});
-      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la víctima era menor de 18 años. Verificar en la sentencia.'});
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la vÃ­ctima como menor de edad â excluye directamente.'});
+      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la vÃ­ctima era menor de 18 aÃ±os. Verificar en la sentencia.'});
       if(c.lrt) r.push({l:'excl',src:'Art. 26 Ley 1121/2006',msg:'Delito excluido por la Ley Antiterrorismo.'});
-      if(c.e68A) r.push({l:'excl',src:'Art. 68-A CP',msg:'Delito en el catálogo de exclusión general del art. 68-A CP.'});
-      if(c.usurpTerr) r.push({l:'verify',src:'Art. 427 CP — agravante terrorismo',msg:'Verificar si el delito fue agravado por finalidad terrorista (art. 427 CP).'});
+      if(c.e68A) r.push({l:'excl',src:'Art. 68-A CP',msg:'Delito en el catÃ¡logo de exclusiÃ³n general del art. 68-A CP.'});
+      if(c.usurpTerr) r.push({l:'verify',src:'Art. 427 CP â agravante terrorismo',msg:'Verificar si el delito fue agravado por finalidad terrorista (art. 427 CP).'});
       return r;
     }
   },
@@ -325,74 +648,73 @@ const SUBS = [
     norm:'Art. 64 CP',
     reqs:[
       'Cumplimiento de 3/5 partes de la pena (60 %)',
-      'Conducta adecuada durante la reclusión (certificado INPEC)',
-      'Reparación a la víctima o garantía de pago',
-      'El tiempo restante se toma como período de prueba',
+      'Conducta adecuada durante la reclusiÃ³n (certificado INPEC)',
+      'ReparaciÃ³n a la vÃ­ctima o garantÃ­a de pago',
+      'El tiempo restante se toma como perÃ­odo de prueba',
     ],
     check(c){
       const r=[];
-      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la víctima como menor de edad — excluye directamente.'});
-      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la víctima era menor de 18 años. Verificar en la sentencia.'});
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la vÃ­ctima como menor de edad â excluye directamente.'});
+      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la vÃ­ctima era menor de 18 aÃ±os. Verificar en la sentencia.'});
       if(c.lrt) r.push({l:'excl',src:'Art. 26 Ley 1121/2006',msg:'Delito excluido por la Ley Antiterrorismo.'});
       return r;
     }
   },
   {
     id:'s38g',
-    name:'Prisión domiciliaria — mitad de pena',
+    name:'PrisiÃ³n domiciliaria â mitad de pena',
     norm:'Art. 38G CP',
     reqs:[
       'Cumplimiento de la mitad de la condena',
       'Arraigo laboral, familiar o social',
-      'No pertenecer al grupo familiar de la víctima',
-      'Caución o mecanismo de vigilancia electrónica',
+      'No pertenecer al grupo familiar de la vÃ­ctima',
+      'CauciÃ³n o mecanismo de vigilancia electrÃ³nica',
     ],
     check(c){
       const r=[];
-      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la víctima como menor de edad — excluye directamente.'});
-      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la víctima era menor de 18 años. Verificar en la sentencia.'});
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la vÃ­ctima como menor de edad â excluye directamente.'});
+      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la vÃ­ctima era menor de 18 aÃ±os. Verificar en la sentencia.'});
       if(c.lrt) r.push({l:'excl',src:'Art. 26 Ley 1121/2006',msg:'Delito excluido por la Ley Antiterrorismo.'});
-      if(c.g38G) r.push({l:'excl',src:'Art. 38G CP',msg:'Delito en el catálogo de exclusión del art. 38G CP.'});
-      if(c.s38G) r.push({l:'note',src:'Art. 38G CP — Art. 376 inc. 2°',msg:'Requiere validar cantidad en sentencia. Solo excluido si supera los umbrales del inc. 2° del art. 376 CP: 1.000 g marihuana · 200 g hachís · 100 g cocaína · 20 g amapola · 200 g droga sintética · 60 g nitrato de amilo · 60 g ketamina y GHB.'});
-      if(c.usurpTerr) r.push({l:'verify',src:'Art. 427 CP — agravante terrorismo',msg:'Verificar si el delito fue agravado por finalidad terrorista (art. 427 CP); en tal caso quedaría excluido del art. 38G.'});
+      if(c.g38G) r.push({l:'excl',src:'Art. 38G CP',msg:'Delito en el catÃ¡logo de exclusiÃ³n del art. 38G CP.'});
+      if(c.s38G) r.push({l:'note',src:'Art. 38G CP â Art. 376 inc. 2Â°',msg:'Requiere validar cantidad en la sentencia. Solo excluido si supera los umbrales del inc. 2Â° del art. 376 CP: 1.000 g marihuana Â· 200 g hachÃ­s Â· 100 g cocaÃ­na Â· 20 g amapola Â· 200 g droga sintÃ©tica Â· 60 g nitrato de amilo Â· 60 g ketamina y GHB.'});
+      if(c.usurpTerr) r.push({l:'verify',src:'Art. 427 CP â agravante terrorismo',msg:'Verificar si fue agravado por finalidad terrorista (art. 427 CP); en tal caso quedarÃ­a excluido del art. 38G.'});
       return r;
     }
   },
   {
     id:'s38h',
-    name:'Prestación de Servicios de Utilidad Pública (solo para mujeres)',
-    norm:'Art. 38H–38I CP · Ley 2292/2023',
+    name:'PrestaciÃ³n de Servicios de Utilidad PÃºblica (solo para mujeres)',
+    norm:'Art. 38Hâ38I CP Â· Ley 2292/2023',
     reqs:[
       'Ser mujer cabeza de familia (jefatura exclusiva o compartida del hogar)',
-      'Pena ≤ 8 años — o condenada por hurto, estupefacientes (art. 376), conservación de plantaciones (art. 375) o destinación ilícita (art. 377): no aplica límite de pena',
-      'Sin condena en firme dentro de los 5 años anteriores al delito (salvo culposos, pena de multa o mismos delitos especiales)',
-      'Demostrar que la comisión del delito está asociada a condiciones de marginalidad',
+      'Pena â¤ 8 aÃ±os â o condenada por hurto, estupefacientes (art. 376), conservaciÃ³n de plantaciones (art. 375) o destinaciÃ³n ilÃ­cita (art. 377): no aplica lÃ­mite de pena',
+      'Sin condena en firme dentro de los 5 aÃ±os anteriores al delito (salvo culposos, pena de multa o mismos delitos especiales)',
+      'Demostrar que la comisiÃ³n del delito estÃ¡ asociada a condiciones de marginalidad',
       'Manifestar voluntad de vincularse libremente a la pena sustitutiva',
     ],
     check(c){
       const r=[];
-      // Exclusiones específicas Ley 2292 (Art. 5.3.1 Directiva Conjunta 001/2026)
-      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006 · Ley 2292/2023',msg:'El tipo penal identifica a la víctima como menor de edad — excluido directamente de la Ley 2292.'});
-      else if(c.v199 && !c.hd) r.push({l:'verify',src:'Art. 199 Ley 1098/2006 · Ley 2292/2023',msg:'Excluido si la víctima era menor de 18 años (delito contra NNA). Verificar en la sentencia.'});
-      if(c.hd) r.push({l:'excl',src:'Ley 2292/2023 — exclusión directa',msg:'Homicidio o lesiones personales dolosas: excluidos expresamente de la Ley 2292/2023 (Directiva Conjunta 001/2026, art. 5.3.1).'});
-      if(c.vif) r.push({l:'excl',src:'Art. 38-I CP núm. 5 · Ley 2292/2023',msg:'Violencia intrafamiliar: excluida expresamente por el numeral 5 del art. 38-I del Código Penal.'});
-      if(c.usm) r.push({l:'excl',src:'Ley 2292/2023 — exclusión directa',msg:'Uso de menores de edad para la comisión de delitos: excluido expresamente de la Ley 2292/2023.'});
-      // NOTA: el art. 68-A y el art. 26 Ley 1121/2006 NO aplican para la Ley 2292
-      // (art. 19 Ley 2292 y Directiva Conjunta 001/2026, art. 5.3.1)
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006 Â· Ley 2292/2023',msg:'El tipo penal identifica a la vÃ­ctima como menor de edad â excluido directamente de la Ley 2292.'});
+      else if(c.v199 && !c.hd) r.push({l:'verify',src:'Art. 199 Ley 1098/2006 Â· Ley 2292/2023',msg:'Excluido si la vÃ­ctima era menor de 18 aÃ±os (delito contra NNA). Verificar en la sentencia.'});
+      if(c.hd) r.push({l:'excl',src:'Ley 2292/2023 â exclusiÃ³n directa',msg:'Homicidio o lesiones personales dolosas: excluidos expresamente de la Ley 2292/2023.'});
+      if(c.vif) r.push({l:'excl',src:'Art. 38-I CP nÃºm. 5 Â· Ley 2292/2023',msg:'Violencia intrafamiliar: excluida expresamente por el numeral 5 del art. 38-I del CÃ³digo Penal.'});
+      if(c.usm) r.push({l:'excl',src:'Ley 2292/2023 â exclusiÃ³n directa',msg:'Uso de menores de edad para la comisiÃ³n de delitos: excluido expresamente de la Ley 2292/2023.'});
+      // Art. 68-A y Art. 26/1121 NO aplican para la Ley 2292 (art. 19 Ley 2292)
       return r;
     }
   },
 ];
 
-// ══════════════════════
+// ââââââââââââââââââââââ
 // ESTADO
-// ══════════════════════
-const sel = new Set();
+// ââââââââââââââââââââââ
+const sel=new Set();
 
-// ══════════════════════
-// BÚSQUEDA
-// ══════════════════════
-function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();}
+// ââââââââââââââââââââââ
+// UTILIDADES
+// ââââââââââââââââââââââ
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[Ì-Í¯]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();}
+
 function search(q){
   if(!q)return[];
   const ws=norm(q).split(' ');
@@ -400,44 +722,70 @@ function search(q){
     if(sel.has(c.id))return false;
     const h=norm(c.name+' '+c.art+' '+c.k);
     return ws.every(w=>h.includes(w));
-  }).slice(0,10);
+  }).slice(0,12);
 }
 
+function srcColor(src){
+  if(src.includes('1098'))return'var(--red)';
+  if(src.includes('1121'))return'var(--orange)';
+  if(src.includes('68-A')||src.includes('68A'))return'var(--purple)';
+  if(src.includes('38G'))return'var(--blue)';
+  if(src.includes('2292')||src.includes('38-I')||src.includes('38I'))return'#7f1d1d';
+  return'var(--amber)';
+}
+
+function flagLabel(c){
+  if(c.a199) return {text:'Art.199 â identifica menor',color:'var(--red)'};
+  if(c.hd)   return {text:'Excluye Ley 2292 (homicidio/lesiones)',color:'#7f1d1d'};
+  if(c.vif)  return {text:'Excluye Ley 2292 (violencia intrafamiliar)',color:'#7f1d1d'};
+  if(c.usm)  return {text:'Excluye Ley 2292 (uso de menores)',color:'#7f1d1d'};
+  if(c.v199) return {text:'Art.199 â verificar vÃ­ctima menor',color:'var(--amber)'};
+  if(c.lrt)  return {text:'Art.26/1121 â Antiterrorismo',color:'var(--orange)'};
+  if(c.e68A) return {text:'Art.68-A â exclusiÃ³n general',color:'var(--purple)'};
+  if(c.g38G) return {text:'Art.38G â domiciliaria mitad pena',color:'var(--blue)'};
+  if(c.s38G) return {text:'Art.38G â verificar cantidad (art.376)',color:'var(--amber)'};
+  if(c.usurpTerr) return {text:'Verificar agravante terrorismo (art.427)',color:'var(--amber)'};
+  return null;
+}
+
+// ââââââââââââââââââââââ
+// DROPDOWN
+// ââââââââââââââââââââââ
 let res=[],act=-1;
 const inp=document.getElementById('inp');
 const dd=document.getElementById('dd');
 
 function openDD(r){
   res=r;act=-1;
-  if(!r.length){dd.innerHTML='<div class="dd-empty">Sin resultados — prueba con otro término o número de artículo</div>';dd.classList.add('open');return;}
+  if(!r.length){
+    dd.innerHTML='<div class="dd-empty">Sin resultados â prueba con otro tÃ©rmino o nÃºmero de artÃ­culo</div>';
+    dd.classList.add('open');return;
+  }
   dd.innerHTML=r.map((c,i)=>{
-    const cats=[];
-    if(c.a199)cats.push('<span style="color:#c0392b">Art.199/1098 (identifica menor)</span>');
-    if(c.v199&&!c.hd)cats.push('<span style="color:#b06c00">Art.199/1098 (verificar víctima)</span>');
-    if(c.hd)cats.push('<span style="color:#7b0d0d;font-weight:700">Excluye Ley 2292 (homicidio/lesiones dolosas)</span>');
-    if(c.vif)cats.push('<span style="color:#7b0d0d;font-weight:700">Excluye Ley 2292 (violencia intrafamiliar)</span>');
-    if(c.usm)cats.push('<span style="color:#7b0d0d;font-weight:700">Excluye Ley 2292 (uso de menores)</span>');
-    if(c.lrt)cats.push('<span style="color:#b84d00">Art.26/1121 (no aplica Ley 2292)</span>');
-    if(c.e68A)cats.push('<span style="color:#5d3eb3">Art.68-A (no aplica Ley 2292)</span>');
-    if(c.g38G)cats.push('<span style="color:#1558a8">Art.38G</span>');
-    if(c.s38G)cats.push('<span style="color:#b06c00">Art.38G especial (verificar cantidad)</span>');
-    if(c.usurpTerr)cats.push('<span style="color:#b06c00">Verificar art.427 (agravante terrorismo)</span>');
+    const fl=flagLabel(c);
+    const flagHtml=fl?`<div class="ddi-flag" style="color:${fl.color}">â  ${fl.text}</div>`
+      :`<div class="ddi-flag" style="color:var(--green)">â Sin exclusiÃ³n directa identificada</div>`;
     return `<div class="ddi" data-i="${i}">
       <div class="ddi-art">${c.art}</div>
-      <div class="ddi-name">${c.name}</div>
-      <div class="ddi-tags">${cats.length?'Excluye: '+cats.join(' · '):'<span style="color:#2e7d52">— Sin exclusión directa en estos catálogos</span>'}</div>
+      <div class="ddi-right">
+        <div class="ddi-name">${c.name}</div>
+        ${flagHtml}
+      </div>
     </div>`;
   }).join('');
   dd.classList.add('open');
   dd.querySelectorAll('.ddi').forEach((el,i)=>el.addEventListener('mousedown',e=>{e.preventDefault();pick(i);}));
 }
+
 function pick(i){
   if(!res[i])return;
   sel.add(res[i].id);
   inp.value='';dd.classList.remove('open');res=[];
   renderTags();
-  document.getElementById('btnAnalyze').disabled=sel.size===0;
+  updateUI();
+  inp.focus();
 }
+
 inp.addEventListener('input',()=>{
   const q=inp.value.trim();
   if(q.length<1){dd.classList.remove('open');return;}
@@ -452,14 +800,26 @@ inp.addEventListener('keydown',e=>{
 });
 document.addEventListener('click',e=>{if(!document.getElementById('sw').contains(e.target))dd.classList.remove('open');});
 
-// ══════════════════════
+// ââââââââââââââââââââââ
+// UI STATE
+// ââââââââââââââââââââââ
+function updateUI(){
+  const n=sel.size;
+  const cc=document.getElementById('crimeCount');
+  cc.textContent=n===1?'1 delito':`${n} delitos`;
+  cc.classList.toggle('show',n>0);
+  document.getElementById('multiHint').classList.toggle('show',n>0);
+  document.getElementById('btnAnalyze').disabled=n===0;
+}
+
+// ââââââââââââââââââââââ
 // RENDER TAGS
-// ══════════════════════
+// ââââââââââââââââââââââ
 function renderTags(){
   const el=document.getElementById('tags');
   const crimes=DB.filter(c=>sel.has(c.id));
   if(!crimes.length){
-    el.innerHTML='<div class="empty-hint" id="hint">Agrega al menos un delito para continuar</div>';
+    el.innerHTML='<div class="empty-hint" id="hint">Busca y agrega los delitos de la sentencia</div>';
     return;
   }
   el.innerHTML=crimes.map(c=>`
@@ -468,37 +828,27 @@ function renderTags(){
         <div class="ctag-art">${c.art}</div>
         <div class="ctag-name">${c.name}</div>
       </div>
-      <button class="ctag-rm" data-id="${c.id}">×</button>
+      <button class="ctag-rm" data-id="${c.id}" title="Quitar delito">Ã</button>
     </div>`).join('');
   el.querySelectorAll('.ctag-rm').forEach(b=>b.addEventListener('click',()=>{
     sel.delete(b.dataset.id);
     renderTags();
-    document.getElementById('btnAnalyze').disabled=sel.size===0;
+    updateUI();
   }));
 }
 
-// ══════════════════════
-// ANÁLISIS PRINCIPAL
-// ══════════════════════
-function srcColor(src){
-  if(src.includes('1098'))return'#c0392b';
-  if(src.includes('1121'))return'#b84d00';
-  if(src.includes('68-A')||src.includes('68A'))return'#5d3eb3';
-  if(src.includes('38G'))return'#1558a8';
-  if(src.includes('2292')||src.includes('38-I')||src.includes('38I'))return'#7b0d0d';
-  return'#b06c00';
-}
-
+// ââââââââââââââââââââââ
+// ANÃLISIS
+// ââââââââââââââââââââââ
 function runAnalysis(){
   const crimes=DB.filter(c=>sel.has(c.id));
   const grid=document.getElementById('grid');
 
   grid.innerHTML=SUBS.map(sub=>{
-    // Por cada delito, obtener issues y adjuntar referencia al delito
     let allIssues=[];
     crimes.forEach(crime=>{
       const issues=sub.check(crime);
-      issues.forEach(iss=>{ iss.crime=crime; });
+      issues.forEach(iss=>{iss.crime=crime;});
       allIssues=allIssues.concat(issues);
     });
 
@@ -513,25 +863,25 @@ function runAnalysis(){
       bodyHtml=`<div class="req-title" style="color:var(--red)">Delito(s) que excluyen</div>`
         +allIssues.filter(i=>i.l==='excl').map(iss=>`
           <div class="excl-item">
-            <div class="excl-crime">${iss.crime.art} &mdash; ${iss.crime.name}</div>
+            <div class="excl-crime">${iss.crime.art} â ${iss.crime.name}</div>
             <div class="excl-src" style="color:${srcColor(iss.src)}">${iss.src}</div>
             <div class="excl-msg">${iss.msg}</div>
           </div>`).join('');
       const vf=allIssues.filter(i=>i.l==='verify'||i.l==='note');
-      if(vf.length) bodyHtml+=`<div class="note-box" style="margin-top:8px;font-size:11.5px">`+vf.map(i=>`&#9888; ${i.msg}`).join('<br/>')+`</div>`;
+      if(vf.length) bodyHtml+=`<div class="note-box">`+vf.map(i=>`â  ${i.msg}`).join('<br/>')+`</div>`;
     }
     else if(hasVerify||hasNote){
       dotColor='var(--amber)';badgeCls='verify';badgeText='Verificar sentencia';
       bodyHtml=allIssues.map(iss=>`
         <div class="excl-item">
-          <div class="excl-crime">${iss.crime.art} &mdash; ${iss.crime.name}</div>
+          <div class="excl-crime">${iss.crime.art} â ${iss.crime.name}</div>
           <div class="excl-src" style="color:${srcColor(iss.src)}">${iss.src}</div>
           <div class="excl-msg">${iss.msg}</div>
         </div>`).join('');
     }
     else{
-      dotColor='var(--teal)';badgeCls='ok';badgeText='Puede solicitar';
-      bodyHtml=`<div class="req-title">Recuerde acreditar estos requisitos</div>`
+      dotColor='var(--green)';badgeCls='ok';badgeText='Puede solicitar';
+      bodyHtml=`<div class="req-title">Requisitos a acreditar</div>`
         +sub.reqs.map(r=>`<div class="req-item"><div class="req-bullet"></div><span>${r}</span></div>`).join('');
     }
 
@@ -555,7 +905,7 @@ function runAnalysis(){
 function resetAll(){
   sel.clear();
   renderTags();
-  document.getElementById('btnAnalyze').disabled=true;
+  updateUI();
   document.getElementById('results').classList.remove('show');
   window.scrollTo({top:0,behavior:'smooth'});
 }
