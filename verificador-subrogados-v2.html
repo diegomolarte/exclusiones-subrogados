@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Verificador de Subrogados · Colombia</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0f4f9;
+  --s1:#e4ebf5;
+  --s2:#d8e3f0;
+  --card:#ffffff;
+  --b1:rgba(0,0,0,.13);
+  --b2:rgba(0,0,0,.07);
+  --teal:#0a8f71;
+  --teal-bg:rgba(10,143,113,.1);
+  --red:#c0392b;
+  --red-bg:rgba(192,57,43,.1);
+  --amber:#b06c00;
+  --amber-bg:rgba(176,108,0,.1);
+  --blue:#1558a8;
+  --purple:#5d3eb3;
+  --orange:#b84d00;
+  --text:#1a2742;
+  --muted:#3d5070;
+  --dim:#6a7d9a;
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
+
+/* HEADER */
+.hdr{background:linear-gradient(180deg,#1a3a6e,#2b5299);border-bottom:1px solid rgba(0,0,0,.15);text-align:center;padding:28px 20px 22px}
+.hdr h1{font-size:24px;font-weight:700;color:#fff;letter-spacing:-.3px;margin-bottom:5px}
+.hdr p{color:rgba(255,255,255,.82);font-size:13px;max-width:520px;margin:0 auto}
+
+/* MAIN */
+.wrap{max-width:980px;margin:0 auto;padding:28px 20px 40px}
+
+/* INPUT PANEL */
+.panel{background:var(--card);border:1px solid var(--b1);border-radius:16px;padding:22px;margin-bottom:20px}
+.panel-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+
+/* SEARCH */
+.search-wrap{position:relative;margin-bottom:12px}
+.search-wrap input{width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:10px;color:var(--text);font-size:14px;padding:11px 14px;outline:none;transition:border-color .15s}
+.search-wrap input::placeholder{color:var(--dim)}
+.search-wrap input:focus{border-color:rgba(28,201,160,.45)}
+.dd{position:absolute;top:calc(100% + 5px);left:0;right:0;background:#1a2d4a;border:1px solid var(--b1);border-radius:10px;max-height:280px;overflow-y:auto;z-index:200;display:none}
+.dd.open{display:block}
+.ddi{padding:9px 14px;cursor:pointer;border-bottom:1px solid var(--b2)}
+.ddi:last-child{border-bottom:none}
+.ddi:hover,.ddi.act{background:rgba(28,201,160,.1)}
+.ddi-art{font-size:11px;color:var(--teal);font-weight:700;margin-bottom:1px}
+.ddi-name{font-size:13px;line-height:1.35}
+.ddi-tags{font-size:11px;color:var(--dim);margin-top:3px}
+.dd-empty{padding:13px;color:var(--dim);font-size:13px;text-align:center}
+
+/* CRIME TAGS */
+.tags-list{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;min-height:0}
+.ctag{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;background:var(--s2);border:1px solid rgba(96,165,250,.25);border-radius:8px;padding:8px 9px 8px 12px}
+.ctag-l{flex:1;min-width:0}
+.ctag-art{font-size:11px;color:var(--teal);font-weight:700;margin-bottom:1px}
+.ctag-name{font-size:13px;line-height:1.3}
+.ctag-rm{background:none;border:none;color:var(--dim);cursor:pointer;font-size:18px;padding:0 2px;line-height:1;flex-shrink:0;transition:color .15s;margin-top:1px}
+.ctag-rm:hover{color:var(--red)}
+.empty-hint{color:var(--dim);font-size:13px;text-align:center;padding:18px 0}
+
+/* ANALIZAR BTN */
+.btn-analyze{width:100%;background:var(--teal);color:#0b1a0e;font-size:15px;font-weight:700;padding:13px;border:none;border-radius:10px;cursor:pointer;transition:opacity .15s;letter-spacing:.01em}
+.btn-analyze:hover{opacity:.88}
+.btn-analyze:disabled{opacity:.4;cursor:not-allowed}
+
+/* RESULTS GRID */
+.results{display:none}
+.results.show{display:block}
+.r-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.r-header h2{font-size:13px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+.r-reset{background:none;border:1px solid var(--b1);border-radius:7px;color:var(--dim);font-size:12px;padding:5px 12px;cursor:pointer;transition:background .15s}
+.r-reset:hover{background:var(--s2)}
+.grid5{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:720px){.grid5{grid-template-columns:1fr}}
+@media(min-width:721px) and (max-width:900px){.grid5{grid-template-columns:1fr 1fr}}
+.rc{background:var(--card);border:1px solid var(--b1);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+
+/* RESULT CARD HEADER */
+.rc-head{padding:14px 16px 12px;border-bottom:1px solid var(--b2)}
+.rc-status{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.rc-name{font-size:13px;font-weight:700;color:#fff;line-height:1.3}
+.rc-norm{font-size:11px;color:var(--dim);margin-top:2px}
+
+/* STATUS BADGES */
+.sbadge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.03em}
+.sbadge.ok{background:var(--teal-bg);color:var(--teal);border:1px solid rgba(10,143,113,.3)}
+.sbadge.excl{background:var(--red-bg);color:var(--red);border:1px solid rgba(192,57,43,.3)}
+.sbadge.verify{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(176,108,0,.3)}
+.sbadge.verify{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(251,191,36,.25)}
+.sbadge.note{background:rgba(96,165,250,.12);color:var(--blue);border:1px solid rgba(96,165,250,.25)}
+
+/* CARD BODY */
+.rc-body{padding:12px 16px;flex:1;font-size:12.5px;line-height:1.5}
+.excl-item{padding:5px 0;border-bottom:1px solid var(--b2)}
+.excl-item:last-child{border-bottom:none}
+.excl-crime{color:var(--text);font-weight:600;margin-bottom:1px}
+.excl-src{font-size:11px;font-weight:700;margin-bottom:2px}
+.excl-msg{color:var(--muted);font-size:11.5px;line-height:1.4}
+.req-title{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.req-item{display:flex;align-items:flex-start;gap:7px;padding:3px 0;color:var(--muted)}
+.req-bullet{width:5px;height:5px;background:var(--teal);border-radius:50%;flex-shrink:0;margin-top:6px}
+.note-box{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18);border-radius:8px;padding:9px 11px;font-size:12px;color:var(--amber);line-height:1.5;margin-top:8px}
+
+/* LEYENDA */
+.legend-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-bottom:5px}
+.legend-row:last-child{margin-bottom:0}
+.ldot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.legend-wrap{background:var(--s2);border:1px solid var(--b2);border-radius:9px;padding:12px 14px;margin-top:14px}
+.legend-title{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px}
+
+/* ALERT */
+.alert-note{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18);border-radius:9px;padding:10px 13px;font-size:12px;color:var(--amber);line-height:1.5;margin-top:12px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--b2);padding:18px 20px;text-align:center;color:var(--dim);font-size:12px}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.2);border-radius:3px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <h1>Verificador de Subrogados y Sustitutos Penales</h1>
+  <p>Ingresa los delitos de la sentencia condenatoria y verifica en cuáles subrogados o sustitutos aplica una solicitud. Análisis en abstracto — no reemplaza la revisión de la sentencia.</p>
+</header>
+
+<div class="wrap">
+
+  <!-- PANEL DE ENTRADA -->
+  <div class="panel">
+    <div class="panel-title">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      Delitos de la sentencia condenatoria
+    </div>
+
+    <div class="search-wrap" id="sw">
+      <input id="inp" type="text" placeholder="Buscar por nombre del delito o número de artículo…" autocomplete="off"/>
+      <div class="dd" id="dd"></div>
+    </div>
+
+    <div class="tags-list" id="tags">
+      <div class="empty-hint" id="hint">Agrega al menos un delito para continuar</div>
+    </div>
+
+    <button class="btn-analyze" id="btnAnalyze" onclick="runAnalysis()" disabled>Verificar subrogados</button>
+
+    <div class="legend-wrap">
+      <div class="legend-title">Fuentes de exclusión que analiza esta herramienta</div>
+      <div class="legend-row"><div class="ldot" style="background:#c0392b"></div> Art. 199 Ley 1098/2006 — Código de la Infancia (delitos contra NNA)</div>
+      <div class="legend-row"><div class="ldot" style="background:#b84d00"></div> Art. 26 Ley 1121/2006 — Ley Antiterrorismo (terrorismo, secuestro, extorsión) · <em>No aplica para Ley 2292</em></div>
+      <div class="legend-row"><div class="ldot" style="background:#5d3eb3"></div> Art. 68-A CP — Exclusión general de subrogados · <em>No aplica para Ley 2292</em></div>
+      <div class="legend-row"><div class="ldot" style="background:#1558a8"></div> Art. 38G CP — Lista de exclusión para prisión domiciliaria (mitad de pena)</div>
+      <div class="legend-row"><div class="ldot" style="background:#c0392b" style="background:#6b0f0f"></div> Ley 2292/2023 — Exclusiones propias: violencia intrafamiliar, uso de menores, homicidio/lesiones dolosas</div>
+      <div class="legend-row"><div class="ldot" style="background:#b06c00"></div> Requiere validación directa en la sentencia</div>
+    </div>
+  </div>
+
+  <!-- PANEL DE RESULTADOS -->
+  <div class="results" id="results">
+    <div class="r-header">
+      <h2>Resultado por subrogado o sustituto</h2>
+      <button class="r-reset" onclick="resetAll()">← Nueva consulta</button>
+    </div>
+    <div class="grid5" id="grid"></div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Art. 63 · 38-B · 64 · 38G · 38H-38I CP — Ley 2292/2023 — Art. 199 Ley 1098/2006 — Art. 26 Ley 1121/2006 — Art. 68-A CP — Directiva Conjunta 001/2026</p>
+  <p style="margin-top:4px">Herramienta de apoyo. Análisis en abstracto. No reemplaza el criterio jurídico del defensor ni la revisión de la sentencia.</p>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// BASE DE DATOS
+// Flags: a199=identifica menor | v199=verificar víctima | lrt=Ley 1121 | e68A=68-A | g38G=38G | s38G=especial estupef.
+// ═══════════════════════════════════════════════════════
+const DB = [
+  // ── ART. 199/1098 · IDENTIFICAN AL MENOR DESDE EL TIPO PENAL ─────
+  {id:'ac_men14', art:'Art. 208 CP',  name:'Acceso carnal abusivo con menor de catorce años',                k:'208 acceso carnal abusivo menor catorce',a199:1},
+  {id:'as_men14', art:'Art. 209 CP',  name:'Actos sexuales con menor de catorce años',                       k:'209 actos sexuales menor catorce abusivos',a199:1},
+  {id:'prox_men', art:'Art. 213A CP', name:'Proxenetismo con menor de edad',                                 k:'213A proxenetismo menor edad',a199:1},
+  {id:'med_com',  art:'Art. 219A CP', name:'Utilización o facilitación de medios de comunicación para ofrecer actividades sexuales con personas menores de 18 años', k:'219A medios comunicacion actividades sexuales menores utilizacion facilitacion 219-A',a199:1},
+  {id:'est_pmen', art:'Art. 217 CP',  name:'Estímulo a la prostitución de menores',                          k:'217 estimulo estimulo prostitucion menores',a199:1},
+  {id:'dem_expl', art:'Art. 217A CP', name:'Demanda de explotación sexual comercial de persona menor de 18 años de edad', k:'217A demanda explotacion sexual comercial menor 18',a199:1},
+  {id:'porn_men', art:'Art. 218 CP',  name:'Pornografía con personas menores de 18 años',                   k:'218 pornografia menores 18',a199:1},
+
+  // ── ART. 199/1098 · NO IDENTIFICAN AL MENOR (verificar en sentencia) ──
+  {id:'homicidio',art:'Art. 103 CP',  name:'Homicidio doloso',                                               k:'103 homicidio doloso',v199:1,hd:1},
+  {id:'lesiones', art:'Art. 111 CP',  name:'Lesiones personales dolosas',                                    k:'111 lesiones personales dolosas',v199:1,hd:1},
+  {id:'sec_simp', art:'Art. 168 CP',  name:'Secuestro simple',                                               k:'168 secuestro simple',v199:1,lrt:1,g38G:1},
+  {id:'sec_ext',  art:'Art. 169 CP',  name:'Secuestro extorsivo',                                            k:'169 secuestro extorsivo',v199:1,lrt:1,g38G:1},
+  {id:'acc_viol', art:'Art. 205 CP',  name:'Acceso carnal violento',                                         k:'205 acceso carnal violento violacion',v199:1,g38G:1},
+  {id:'act_viol', art:'Art. 206 CP',  name:'Acto sexual violento',                                           k:'206 acto sexual violento',v199:1,g38G:1},
+  {id:'acc_inc',  art:'Art. 207 CP',  name:'Acceso carnal o acto sexual en persona puesta en incapacidad de resistir', k:'207 acceso acto sexual incapacidad resistir',v199:1,g38G:1},
+  {id:'ab_inc',   art:'Art. 210 CP',  name:'Acceso carnal o acto sexual abusivo con incapaz de resistir',   k:'210 abusivo incapaz resistir',v199:1,g38G:1},
+  {id:'acoso',    art:'Art. 210A CP', name:'Acoso sexual',                                                   k:'210A acoso sexual',v199:1,g38G:1},
+  {id:'ind_pr',   art:'Art. 213 CP',  name:'Inducción a la prostitución',                                    k:'213 induccion a la prostitucion',v199:1,g38G:1},
+  {id:'con_pr',   art:'Art. 214 CP',  name:'Constreñimiento a la prostitución',                              k:'214 constreñimiento prostitucion',v199:1,g38G:1},
+  {id:'tur_sex',  art:'Art. 219 CP',  name:'Turismo sexual',                                                 k:'219 turismo sexual',v199:1,g38G:1},
+  {id:'omis_d',   art:'Art. 219B CP', name:'Omisión de denuncia',                                            k:'219B 219-B omision denuncia',v199:1,g38G:1},
+
+  // ── ART. 26 LEY 1121/2006 ─────────────────────────────────────────
+  {id:'terror',   art:'Art. 343 CP',  name:'Terrorismo',                                                     k:'343 terrorismo',lrt:1,e68A:1,g38G:1},
+  {id:'extorsion',art:'Art. 244 CP',  name:'Extorsión',                                                      k:'244 extorsion extorsión',lrt:1,e68A:1,g38G:1},
+
+  // ── ART. 345 CP (nombre oficial actualizado) ──────────────────────
+  {id:'fin_terr', art:'Art. 345 CP',  name:'Financiación del terrorismo y de grupos de delincuencia organizada y administración de recursos relacionados con actividades terroristas y de la delincuencia organizada', k:'345 financiacion terrorismo grupos delincuencia organizada administracion recursos actividades terroristas',lrt:1,g38G:1},
+
+  // ── ART. 38G / 68-A ──────────────────────────────────────────────
+  {id:'genocidio',art:'Art. 101 CP',  name:'Genocidio',                                                     k:'101 genocidio',g38G:1},
+  {id:'apol_gen', art:'Art. 102 CP',  name:'Apología del genocidio',                                        k:'102 apologia genocidio',e68A:1},
+  {id:'hom_pr',   art:'Art. 135 CP',  name:'Homicidio en persona protegida',                                k:'135 homicidio persona protegida DIH',g38G:1},
+  {id:'les_pr',   art:'Art. 136 CP',  name:'Lesiones en persona protegida',                                 k:'136 lesiones persona protegida DIH',g38G:1},
+  {id:'tor_pr',   art:'Art. 137 CP',  name:'Tortura en persona protegida',                                  k:'137 tortura persona protegida DIH',g38G:1},
+  {id:'desap',    art:'Art. 165 CP',  name:'Desaparición forzada',                                          k:'165 desaparicion forzada',e68A:1,g38G:1},
+  {id:'tortura',  art:'Art. 178 CP',  name:'Tortura',                                                       k:'178 tortura',g38G:1},
+  {id:'desplaz',  art:'Art. 180 CP',  name:'Desplazamiento forzado',                                        k:'180 desplazamiento forzado',e68A:1,g38G:1},
+  {id:'tr_men',   art:'Art. 188C CP', name:'Tráfico de niñas, niños y adolescentes',                        k:'188C trafico niñas niños adolescentes menores',g38G:1},
+  {id:'uso_men',  art:'Art. 188D CP', name:'Uso de menores de edad para la comisión de delitos',            k:'188D uso menores edad comision delitos',g38G:1,usm:1},
+  {id:'tr_migr',  art:'Art. 188 CP',  name:'Tráfico de migrantes',                                          k:'188 trafico migrantes',e68A:1,g38G:1},
+  {id:'trata',    art:'Art. 188A CP', name:'Trata de personas',                                              k:'188A trata de personas',e68A:1,g38G:1},
+  {id:'con_agr',  art:'Art. 340 inc. 2° CP', name:'Concierto para delinquir agravado',                     k:'340 concierto para delinquir agravado',e68A:1,g38G:1},
+  {id:'lavado',   art:'Art. 323 CP',  name:'Lavado de activos',                                             k:'323 lavado de activos',e68A:1,g38G:1},
+  {id:'usurp_fp', art:'Art. 425 CP',  name:'Usurpación de funciones públicas',                              k:'425 usurpacion funciones publicas',g38G:0,usurpTerr:1},
+  {id:'armas_r',  art:'Art. 366 CP',  name:'Fabricación, tráfico y porte de armas y municiones de uso privativo de las fuerzas armadas o explosivos', k:'366 fabricacion trafico porte armas municiones uso privativo fuerzas armadas explosivos',g38G:1},
+  {id:'dest_il',  art:'Art. 377 CP',  name:'Destinación ilícita de muebles o inmuebles',                   k:'377 destinacion ilicita muebles inmuebles',g38G:1},
+  {id:'semis',    art:'Art. 377A CP', name:'Uso, construcción, comercialización y/o tenencia de semisumergibles o sumergibles', k:'377A semisumergibles sumergibles',g38G:1},
+  {id:'est_il',   art:'Art. 378 CP',  name:'Estímulo al uso ilícito',                                      k:'378 estimulo uso ilicito drogas',g38G:1},
+  {id:'sum_fo',   art:'Art. 379 CP',  name:'Suministro o formulación ilegal',                               k:'379 suministro formulacion ilegal',g38G:1},
+  {id:'sum_dep',  art:'Art. 380 CP',  name:'Suministro o formulación ilegal a deportistas',                 k:'380 suministro formulacion ilegal deportistas',g38G:1},
+  {id:'sum_men',  art:'Art. 381 CP',  name:'Suministro a menor',                                            k:'381 suministro menor drogas',g38G:1},
+  {id:'tr_sus',   art:'Art. 382 CP',  name:'Tráfico de sustancias para el procesamiento de narcóticos',    k:'382 trafico sustancias procesamiento narcoticos precursores',g38G:1},
+  {id:'porte_s',  art:'Art. 383 CP',  name:'Porte de sustancias',                                           k:'383 porte sustancias escopolamina',g38G:1},
+  {id:'pistas',   art:'Art. 385 CP',  name:'Existencia, construcción y utilización ilegal de pistas de aterrizaje', k:'385 pistas aterrizaje ilegales',g38G:1},
+  {id:'peculado', art:'Art. 397 CP',  name:'Peculado por apropiación',                                      k:'397 peculado por apropiacion',e68A:1,g38G:1},
+  {id:'concusion',art:'Art. 404 CP',  name:'Concusión',                                                     k:'404 concusion',e68A:1,g38G:1},
+  {id:'coh_p',    art:'Art. 405 CP',  name:'Cohecho propio',                                                k:'405 cohecho propio',e68A:1,g38G:1},
+  {id:'coh_i',    art:'Art. 406 CP',  name:'Cohecho impropio',                                              k:'406 cohecho impropio',e68A:1,g38G:1},
+  {id:'coh_d',    art:'Art. 407 CP',  name:'Cohecho por dar u ofrecer',                                     k:'407 cohecho por dar ofrecer',e68A:1,g38G:1},
+  {id:'int_ind',  art:'Art. 409 CP',  name:'Interés indebido en la celebración de contratos',               k:'409 interes indebido celebracion contratos',e68A:1,g38G:1},
+  {id:'con_req',  art:'Art. 410 CP',  name:'Contrato sin cumplimiento de requisitos legales',               k:'410 contrato sin cumplimiento requisitos legales',e68A:1,g38G:1},
+  {id:'acu_res',  art:'Art. 410A CP', name:'Acuerdos restrictivos de la competencia',                       k:'410A acuerdos restrictivos competencia',e68A:1,g38G:1},
+  {id:'tr_inf',   art:'Art. 411 CP',  name:'Tráfico de influencias de servidor público',                    k:'411 trafico influencias servidor publico',e68A:1,g38G:1},
+  {id:'enr_il',   art:'Art. 412 CP',  name:'Enriquecimiento ilícito',                                      k:'412 enriquecimiento ilicito',e68A:1,g38G:1},
+  {id:'prev',     art:'Art. 413 CP',  name:'Prevaricato por acción',                                        k:'413 prevaricato por accion',e68A:1,g38G:1},
+  {id:'fals_t',   art:'Art. 442 CP',  name:'Falso testimonio',                                              k:'442 falso testimonio',g38G:1},
+  {id:'soborno',  art:'Art. 444 CP',  name:'Soborno',                                                       k:'444 soborno',g38G:1},
+  {id:'sob_act',  art:'Art. 444A CP', name:'Soborno en la actuación penal',                                 k:'444A soborno actuacion penal',g38G:1},
+  {id:'amn_t',    art:'Art. 454A CP', name:'Amenazas a testigo',                                            k:'454A amenazas a testigo',g38G:1},
+  {id:'ocu_pr',   art:'Art. 454B CP', name:'Ocultamiento, alteración o destrucción de elemento material probatorio', k:'454B ocultamiento alteracion destruccion elemento material probatorio',g38G:1},
+  {id:'femin',    art:'Art. 104A CP', name:'Feminicidio',                                                   k:'104A feminicidio',g38G:1},
+
+  // ── REGLA ESPECIAL 38G ────────────────────────────────────────────
+  {id:'estup',    art:'Art. 376 CP',  name:'Tráfico, fabricación o porte de estupefacientes',               k:'376 trafico fabricacion porte estupefacientes drogas cocaina marihuana heroina narcotrafico',s38G:1},
+
+  // ── SOLO 68-A ────────────────────────────────────────────────────
+  {id:'viol_if',  art:'Art. 229 CP',  name:'Violencia intrafamiliar',                                       k:'229 violencia intrafamiliar',e68A:1,vif:1},
+  {id:'hurto_c',  art:'Art. 240 CP',  name:'Hurto calificado',                                              k:'240 hurto calificado',e68A:1},
+  {id:'les_qui',  art:'Art. 116A CP', name:'Lesiones con agentes químicos, ácido y/o sustancias similares', k:'116A lesiones agentes quimicos acido sustancias',e68A:1},
+  {id:'enr_par',  art:'Art. 327 CP',  name:'Enriquecimiento ilícito de particulares',                       k:'327 enriquecimiento ilicito particulares',e68A:1},
+  {id:'sob_tr',   art:'Art. 433 CP',  name:'Soborno transnacional',                                         k:'433 soborno transnacional',e68A:1},
+  {id:'tesf',     art:'Art. 326 CP',  name:'Testaferrato',                                                   k:'326 testaferrato',e68A:1},
+];
+
+// ═══════════════════════════════════════════════════════
+// DEFINICIÓN DE LOS 5 SUBROGADOS / SUSTITUTOS
+// check(c) devuelve array de {l, src, msg}
+// El delito (c) se adjunta en runAnalysis al iterar
+// ═══════════════════════════════════════════════════════
+const SUBS = [
+  {
+    id:'s63',
+    name:'Suspensión condicional de la ejecución de la pena',
+    norm:'Art. 63 CP',
+    reqs:[
+      'Pena impuesta no superior a 4 años de prisión',
+      'No tener condena anterior por delito doloso',
+      'Pronóstico favorable de no comisión de nuevos delitos',
+      'Reparación a la víctima o garantía de pago (caución)',
+    ],
+    check(c){
+      const r=[];
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la víctima como menor de edad — excluye directamente.'});
+      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la víctima era menor de 18 años. Verificar en la sentencia.'});
+      if(c.lrt) r.push({l:'excl',src:'Art. 26 Ley 1121/2006',msg:'Delito excluido por la Ley Antiterrorismo (terrorismo, secuestro, extorsión y financiación).'});
+      if(c.e68A) r.push({l:'excl',src:'Art. 68-A CP',msg:'Delito en el catálogo de exclusión general del art. 68-A CP.'});
+      if(c.usurpTerr) r.push({l:'verify',src:'Art. 427 CP — agravante terrorismo',msg:'Verificar en la sentencia: si el delito fue agravado por finalidad terrorista (art. 427 CP), quedaría en el catálogo del art. 68-A CP.'});
+      return r;
+    }
+  },
+  {
+    id:'s38b',
+    name:'Prisión domiciliaria en sentencia',
+    norm:'Art. 38-B CP',
+    reqs:[
+      'Pena impuesta no superior a 8 años de prisión',
+      'Domicilio conocido y arraigo familiar, laboral o social',
+      'Pronóstico favorable de no reincidencia',
+      'Caución o mecanismo de vigilancia electrónica',
+    ],
+    check(c){
+      const r=[];
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la víctima como menor de edad — excluye directamente.'});
+      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la víctima era menor de 18 años. Verificar en la sentencia.'});
+      if(c.lrt) r.push({l:'excl',src:'Art. 26 Ley 1121/2006',msg:'Delito excluido por la Ley Antiterrorismo.'});
+      if(c.e68A) r.push({l:'excl',src:'Art. 68-A CP',msg:'Delito en el catálogo de exclusión general del art. 68-A CP.'});
+      if(c.usurpTerr) r.push({l:'verify',src:'Art. 427 CP — agravante terrorismo',msg:'Verificar si el delito fue agravado por finalidad terrorista (art. 427 CP).'});
+      return r;
+    }
+  },
+  {
+    id:'s64',
+    name:'Libertad condicional',
+    norm:'Art. 64 CP',
+    reqs:[
+      'Cumplimiento de 3/5 partes de la pena (60 %)',
+      'Conducta adecuada durante la reclusión (certificado INPEC)',
+      'Reparación a la víctima o garantía de pago',
+      'El tiempo restante se toma como período de prueba',
+    ],
+    check(c){
+      const r=[];
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la víctima como menor de edad — excluye directamente.'});
+      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la víctima era menor de 18 años. Verificar en la sentencia.'});
+      if(c.lrt) r.push({l:'excl',src:'Art. 26 Ley 1121/2006',msg:'Delito excluido por la Ley Antiterrorismo.'});
+      return r;
+    }
+  },
+  {
+    id:'s38g',
+    name:'Prisión domiciliaria — mitad de pena',
+    norm:'Art. 38G CP',
+    reqs:[
+      'Cumplimiento de la mitad de la condena',
+      'Arraigo laboral, familiar o social',
+      'No pertenecer al grupo familiar de la víctima',
+      'Caución o mecanismo de vigilancia electrónica',
+    ],
+    check(c){
+      const r=[];
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006',msg:'El tipo penal identifica a la víctima como menor de edad — excluye directamente.'});
+      else if(c.v199) r.push({l:'verify',src:'Art. 199 Ley 1098/2006',msg:'Excluido si la víctima era menor de 18 años. Verificar en la sentencia.'});
+      if(c.lrt) r.push({l:'excl',src:'Art. 26 Ley 1121/2006',msg:'Delito excluido por la Ley Antiterrorismo.'});
+      if(c.g38G) r.push({l:'excl',src:'Art. 38G CP',msg:'Delito en el catálogo de exclusión del art. 38G CP.'});
+      if(c.s38G) r.push({l:'note',src:'Art. 38G CP — Art. 376 inc. 2°',msg:'Requiere validar cantidad en sentencia. Solo excluido si supera los umbrales del inc. 2° del art. 376 CP: 1.000 g marihuana · 200 g hachís · 100 g cocaína · 20 g amapola · 200 g droga sintética · 60 g nitrato de amilo · 60 g ketamina y GHB.'});
+      if(c.usurpTerr) r.push({l:'verify',src:'Art. 427 CP — agravante terrorismo',msg:'Verificar si el delito fue agravado por finalidad terrorista (art. 427 CP); en tal caso quedaría excluido del art. 38G.'});
+      return r;
+    }
+  },
+  {
+    id:'s38h',
+    name:'Prestación de Servicios de Utilidad Pública (solo para mujeres)',
+    norm:'Art. 38H–38I CP · Ley 2292/2023',
+    reqs:[
+      'Ser mujer cabeza de familia (jefatura exclusiva o compartida del hogar)',
+      'Pena ≤ 8 años — o condenada por hurto, estupefacientes (art. 376), conservación de plantaciones (art. 375) o destinación ilícita (art. 377): no aplica límite de pena',
+      'Sin condena en firme dentro de los 5 años anteriores al delito (salvo culposos, pena de multa o mismos delitos especiales)',
+      'Demostrar que la comisión del delito está asociada a condiciones de marginalidad',
+      'Manifestar voluntad de vincularse libremente a la pena sustitutiva',
+    ],
+    check(c){
+      const r=[];
+      // Exclusiones específicas Ley 2292 (Art. 5.3.1 Directiva Conjunta 001/2026)
+      if(c.a199) r.push({l:'excl',src:'Art. 199 Ley 1098/2006 · Ley 2292/2023',msg:'El tipo penal identifica a la víctima como menor de edad — excluido directamente de la Ley 2292.'});
+      else if(c.v199 && !c.hd) r.push({l:'verify',src:'Art. 199 Ley 1098/2006 · Ley 2292/2023',msg:'Excluido si la víctima era menor de 18 años (delito contra NNA). Verificar en la sentencia.'});
+      if(c.hd) r.push({l:'excl',src:'Ley 2292/2023 — exclusión directa',msg:'Homicidio o lesiones personales dolosas: excluidos expresamente de la Ley 2292/2023 (Directiva Conjunta 001/2026, art. 5.3.1).'});
+      if(c.vif) r.push({l:'excl',src:'Art. 38-I CP núm. 5 · Ley 2292/2023',msg:'Violencia intrafamiliar: excluida expresamente por el numeral 5 del art. 38-I del Código Penal.'});
+      if(c.usm) r.push({l:'excl',src:'Ley 2292/2023 — exclusión directa',msg:'Uso de menores de edad para la comisión de delitos: excluido expresamente de la Ley 2292/2023.'});
+      // NOTA: el art. 68-A y el art. 26 Ley 1121/2006 NO aplican para la Ley 2292
+      // (art. 19 Ley 2292 y Directiva Conjunta 001/2026, art. 5.3.1)
+      return r;
+    }
+  },
+];
+
+// ══════════════════════
+// ESTADO
+// ══════════════════════
+const sel = new Set();
+
+// ══════════════════════
+// BÚSQUEDA
+// ══════════════════════
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();}
+function search(q){
+  if(!q)return[];
+  const ws=norm(q).split(' ');
+  return DB.filter(c=>{
+    if(sel.has(c.id))return false;
+    const h=norm(c.name+' '+c.art+' '+c.k);
+    return ws.every(w=>h.includes(w));
+  }).slice(0,10);
+}
+
+let res=[],act=-1;
+const inp=document.getElementById('inp');
+const dd=document.getElementById('dd');
+
+function openDD(r){
+  res=r;act=-1;
+  if(!r.length){dd.innerHTML='<div class="dd-empty">Sin resultados — prueba con otro término o número de artículo</div>';dd.classList.add('open');return;}
+  dd.innerHTML=r.map((c,i)=>{
+    const cats=[];
+    if(c.a199)cats.push('<span style="color:#c0392b">Art.199/1098 (identifica menor)</span>');
+    if(c.v199&&!c.hd)cats.push('<span style="color:#b06c00">Art.199/1098 (verificar víctima)</span>');
+    if(c.hd)cats.push('<span style="color:#7b0d0d;font-weight:700">Excluye Ley 2292 (homicidio/lesiones dolosas)</span>');
+    if(c.vif)cats.push('<span style="color:#7b0d0d;font-weight:700">Excluye Ley 2292 (violencia intrafamiliar)</span>');
+    if(c.usm)cats.push('<span style="color:#7b0d0d;font-weight:700">Excluye Ley 2292 (uso de menores)</span>');
+    if(c.lrt)cats.push('<span style="color:#b84d00">Art.26/1121 (no aplica Ley 2292)</span>');
+    if(c.e68A)cats.push('<span style="color:#5d3eb3">Art.68-A (no aplica Ley 2292)</span>');
+    if(c.g38G)cats.push('<span style="color:#1558a8">Art.38G</span>');
+    if(c.s38G)cats.push('<span style="color:#b06c00">Art.38G especial (verificar cantidad)</span>');
+    if(c.usurpTerr)cats.push('<span style="color:#b06c00">Verificar art.427 (agravante terrorismo)</span>');
+    return `<div class="ddi" data-i="${i}">
+      <div class="ddi-art">${c.art}</div>
+      <div class="ddi-name">${c.name}</div>
+      <div class="ddi-tags">${cats.length?'Excluye: '+cats.join(' · '):'<span style="color:#2e7d52">— Sin exclusión directa en estos catálogos</span>'}</div>
+    </div>`;
+  }).join('');
+  dd.classList.add('open');
+  dd.querySelectorAll('.ddi').forEach((el,i)=>el.addEventListener('mousedown',e=>{e.preventDefault();pick(i);}));
+}
+function pick(i){
+  if(!res[i])return;
+  sel.add(res[i].id);
+  inp.value='';dd.classList.remove('open');res=[];
+  renderTags();
+  document.getElementById('btnAnalyze').disabled=sel.size===0;
+}
+inp.addEventListener('input',()=>{
+  const q=inp.value.trim();
+  if(q.length<1){dd.classList.remove('open');return;}
+  openDD(search(q));
+});
+inp.addEventListener('keydown',e=>{
+  const items=dd.querySelectorAll('.ddi');
+  if(e.key==='ArrowDown'){act=Math.min(act+1,items.length-1);items.forEach((el,i)=>el.classList.toggle('act',i===act));e.preventDefault();}
+  else if(e.key==='ArrowUp'){act=Math.max(act-1,0);items.forEach((el,i)=>el.classList.toggle('act',i===act));e.preventDefault();}
+  else if(e.key==='Enter'&&act>=0)pick(act);
+  else if(e.key==='Escape')dd.classList.remove('open');
+});
+document.addEventListener('click',e=>{if(!document.getElementById('sw').contains(e.target))dd.classList.remove('open');});
+
+// ══════════════════════
+// RENDER TAGS
+// ══════════════════════
+function renderTags(){
+  const el=document.getElementById('tags');
+  const crimes=DB.filter(c=>sel.has(c.id));
+  if(!crimes.length){
+    el.innerHTML='<div class="empty-hint" id="hint">Agrega al menos un delito para continuar</div>';
+    return;
+  }
+  el.innerHTML=crimes.map(c=>`
+    <div class="ctag">
+      <div class="ctag-l">
+        <div class="ctag-art">${c.art}</div>
+        <div class="ctag-name">${c.name}</div>
+      </div>
+      <button class="ctag-rm" data-id="${c.id}">×</button>
+    </div>`).join('');
+  el.querySelectorAll('.ctag-rm').forEach(b=>b.addEventListener('click',()=>{
+    sel.delete(b.dataset.id);
+    renderTags();
+    document.getElementById('btnAnalyze').disabled=sel.size===0;
+  }));
+}
+
+// ══════════════════════
+// ANÁLISIS PRINCIPAL
+// ══════════════════════
+function srcColor(src){
+  if(src.includes('1098'))return'#c0392b';
+  if(src.includes('1121'))return'#b84d00';
+  if(src.includes('68-A')||src.includes('68A'))return'#5d3eb3';
+  if(src.includes('38G'))return'#1558a8';
+  if(src.includes('2292')||src.includes('38-I')||src.includes('38I'))return'#7b0d0d';
+  return'#b06c00';
+}
+
+function runAnalysis(){
+  const crimes=DB.filter(c=>sel.has(c.id));
+  const grid=document.getElementById('grid');
+
+  grid.innerHTML=SUBS.map(sub=>{
+    // Por cada delito, obtener issues y adjuntar referencia al delito
+    let allIssues=[];
+    crimes.forEach(crime=>{
+      const issues=sub.check(crime);
+      issues.forEach(iss=>{ iss.crime=crime; });
+      allIssues=allIssues.concat(issues);
+    });
+
+    const hasExcl  =allIssues.some(i=>i.l==='excl');
+    const hasVerify=allIssues.some(i=>i.l==='verify');
+    const hasNote  =allIssues.some(i=>i.l==='note');
+
+    let dotColor,badgeCls,badgeText,bodyHtml;
+
+    if(hasExcl){
+      dotColor='var(--red)';badgeCls='excl';badgeText='No aplica';
+      bodyHtml=`<div class="req-title" style="color:var(--red)">Delito(s) que excluyen</div>`
+        +allIssues.filter(i=>i.l==='excl').map(iss=>`
+          <div class="excl-item">
+            <div class="excl-crime">${iss.crime.art} &mdash; ${iss.crime.name}</div>
+            <div class="excl-src" style="color:${srcColor(iss.src)}">${iss.src}</div>
+            <div class="excl-msg">${iss.msg}</div>
+          </div>`).join('');
+      const vf=allIssues.filter(i=>i.l==='verify'||i.l==='note');
+      if(vf.length) bodyHtml+=`<div class="note-box" style="margin-top:8px;font-size:11.5px">`+vf.map(i=>`&#9888; ${i.msg}`).join('<br/>')+`</div>`;
+    }
+    else if(hasVerify||hasNote){
+      dotColor='var(--amber)';badgeCls='verify';badgeText='Verificar sentencia';
+      bodyHtml=allIssues.map(iss=>`
+        <div class="excl-item">
+          <div class="excl-crime">${iss.crime.art} &mdash; ${iss.crime.name}</div>
+          <div class="excl-src" style="color:${srcColor(iss.src)}">${iss.src}</div>
+          <div class="excl-msg">${iss.msg}</div>
+        </div>`).join('');
+    }
+    else{
+      dotColor='var(--teal)';badgeCls='ok';badgeText='Puede solicitar';
+      bodyHtml=`<div class="req-title">Recuerde acreditar estos requisitos</div>`
+        +sub.reqs.map(r=>`<div class="req-item"><div class="req-bullet"></div><span>${r}</span></div>`).join('');
+    }
+
+    return `<div class="rc">
+      <div class="rc-head">
+        <div class="rc-status">
+          <div class="dot" style="background:${dotColor}"></div>
+          <div class="sbadge ${badgeCls}">${badgeText}</div>
+        </div>
+        <div class="rc-name">${sub.name}</div>
+        <div class="rc-norm">${sub.norm}</div>
+      </div>
+      <div class="rc-body">${bodyHtml}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function resetAll(){
+  sel.clear();
+  renderTags();
+  document.getElementById('btnAnalyze').disabled=true;
+  document.getElementById('results').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
